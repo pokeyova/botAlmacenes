@@ -133,3 +133,56 @@ public class MainBot extends  TelegramLongPollingBot{
         }
         else if(comando.equals("1. REGISTRAR") || accion.equals("REGISTRAR"))
         {
+        // AGREGAR LOS DATOS A LA LISTA
+            if(seccion.equals("EMPLEADOS")) {
+                /*******************************
+                 *             EMPLEADOS
+                 * ****************************/
+                if(accion.equals(""))
+                {
+                    texto_mensaje = "DATOS QUE SE NECESITAN:\n1. NOMBRE*\n2. DIRECCIÓN*\n3. CELULAR*\n4. SUCURSAL*\n===============================\nDEBE IR ELIGIENDO LOS CAMPOS(LOS CAMPOS CON * SON OBLIGATORIOS)";
+                }
+                // ASIGNAR LA ACCION ACTUAL
+                accion = "REGISTRAR";
+
+                // ASIGNAR CAMPOS
+                if(!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL")  && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
+                {
+                    if(campo.equals("nombre"))
+                    {
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(direccion != "" && celular != "" && sucursal != "")
+                        {
+                            texto_mensaje = "CORRECTO!";
+                        }
+
+                        nombre = comando;
+                    }
+                    else if(campo.equals("direccion"))
+                    {
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(nombre != "" && celular != "" && sucursal != "") {
+                            texto_mensaje = "CORRECTO!";
+                        }
+                        direccion = comando;
+                    }
+                    else if(campo.equals("celular"))
+                    {
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(nombre != "" && direccion != "" && sucursal != ""){
+                            texto_mensaje = "CORRECTO!";
+                        }
+
+                        celular = comando;
+                    }
+                    else if(campo.equals("sucursal"))
+                    {
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(nombre != "" && direccion != "" && celular != ""){
+                            texto_mensaje = "CORRECTO!";
+                        }
+
+                        sucursal = comando;
+                    }
+                }
+
