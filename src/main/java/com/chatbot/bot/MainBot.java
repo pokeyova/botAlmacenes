@@ -76,3 +76,60 @@ public class MainBot extends  TelegramLongPollingBot{
    /*public String getBotToken() {
         return "1011018114:AAF75PTT1qglCByMO0RpdeVmYQuunu95cbw";
     }*/
+    /****************************
+     * SECCIÓN MENÚ DE MENSAJES
+     * ***************************/
+
+    // Menu inicial
+    public void menuInicial(String comando,Update update)
+    {
+        // RESPONDER AL USUARIO
+        SendMessage mensaje = new SendMessage();
+        // ARMAR EL MENSAJE
+        String texto_mensaje = "";
+        // OPCIONES
+        ReplyKeyboardMarkup kb = new ReplyKeyboardMarkup();
+        //Crear una lista que guarde las opciones
+        List<KeyboardRow> keyboard = new ArrayList();
+
+        // RESPUESTA
+        if(comando.toLowerCase().equals("/almacen"))
+        {
+            seccion = "INICIO";
+            accion = "";
+            campo = "";
+            /*keyboard.clear();
+            row.clear();*/
+            // AGREGAR LAS OPCIONES INICIO
+            keyboard = inicio();
+            kb.setKeyboard(keyboard);
+            texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
+            mensaje.setReplyMarkup(kb);
+        }
+        else if(comando.equals("1. EMPLEADOS") || comando.toLowerCase().equals("/empleados")) {
+            seccion = "EMPLEADOS";
+            accion = "";
+            campo = "";
+            limpiar();
+            // AGREGAR LAS OPCIONES ACCIONES
+            keyboard = acciones();
+            kb.setKeyboard(keyboard);
+            texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
+            mensaje.setReplyMarkup(kb);
+        }
+        else if(comando.equals("2. PRODUCTOS") || comando.toLowerCase().equals("/productos")){
+            seccion = "PRODUCTOS";
+            accion = "";
+            campo = "";
+            limpiar();
+            // AGREGAR LAS OPCIONES ACCIONES
+            keyboard = acciones();
+            KeyboardRow row = new KeyboardRow();
+            row.add("6. PRODUCTOS SUCURSAL");
+            keyboard.add(row);
+            kb.setKeyboard(keyboard);
+            texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
+            mensaje.setReplyMarkup(kb);
+        }
+        else if(comando.equals("1. REGISTRAR") || accion.equals("REGISTRAR"))
+        {
