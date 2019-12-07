@@ -504,8 +504,27 @@ public class MainBot extends  TelegramLongPollingBot{
                         }
                     }
                 }
-
-
+            if(comando.equals("4. MOSTRAR") || accion.equals("MOSTRAR"))
+            {
+                if(seccion == "EMPLEADOS"){
+                    if(accion.equals("MOSTRAR"))
+                    {
+                        texto_mensaje = serviceEmpleado.muestraEmpleado(Integer.parseInt(comando));
+                        if(texto_mensaje == "")
+                        {
+                            texto_mensaje = "NO SE ENCONTRÓ NINGUN EMPLEADO CON ESE ID. POR FAVOR INGRESE OTRO ID";
+                        }
+                        else{
+                            accion = "";
+                        }
+                    }
+                    else{
+                        texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE VER";
+                        accion = "MOSTRAR";
+                    }
+                }
+                else{
+                    if(accion.equals("MOSTRAR"))
             else{
                 if(accion.equals("ELIMINAR"))
                 {
