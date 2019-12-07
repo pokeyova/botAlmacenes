@@ -349,44 +349,34 @@ public class MainBot extends  TelegramLongPollingBot{
                     accion = "MODIFICAR";
                 }
 
-                if(seccion.equals("EMPLEADOS"))
-                {
+                if(seccion.equals("EMPLEADOS")) {
                     /**********************
                      *       EMPLEADOS
                      * *******************/
                     // ASIGNAR LA ACCION A ID PARA SOLICITAR QUE SE INGRESE
-                    if(id == 0)
-                    {
+                    if (id == 0) {
                         texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
                         accion = "ID";
                     }
 
                     // ASIGNAR CAMPOS
-                    if(!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL")  && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
-                    {
+                    if (!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
                         int respuesta = 0;
-                        if(campo.equals("nombre"))
-                        {
-                            serviceEmpleado.modificarEmpleado("nombre",id,comando);
+                        if (campo.equals("nombre")) {
+                            serviceEmpleado.modificarEmpleado("nombre", id, comando);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             nombre = "";
-                        }
-                        else if(campo.equals("direccion"))
-                        {
-                            serviceEmpleado.modificarEmpleado("direccion",id,comando);
+                        } else if (campo.equals("direccion")) {
+                            serviceEmpleado.modificarEmpleado("direccion", id, comando);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             direccion = "";
-                        }
-                        else if(campo.equals("celular"))
-                        {
-                            serviceEmpleado.modificarEmpleado("celular",id,comando);
+                        } else if (campo.equals("celular")) {
+                            serviceEmpleado.modificarEmpleado("celular", id, comando);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             celular = "";
-                        }
-                        else if(campo.equals("sucursal"))
-                        {
-                            String sucursal_id = serviceSucursal.getIdSucursalByName(comando)+"";
-                            serviceEmpleado.modificarEmpleado("sucursal_id",id,sucursal_id);
+                        } else if (campo.equals("sucursal")) {
+                            String sucursal_id = serviceSucursal.getIdSucursalByName(comando) + "";
+                            serviceEmpleado.modificarEmpleado("sucursal_id", id, sucursal_id);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             sucursal = "";
                         }
@@ -394,6 +384,7 @@ public class MainBot extends  TelegramLongPollingBot{
                         kb.setKeyboard(keyboard);
                         mensaje.setReplyMarkup(kb);
                     }
+                }
                     //FIN ASIGANAR CAMPOS
 
                     // PEDIR DATOS
@@ -489,3 +480,27 @@ public class MainBot extends  TelegramLongPollingBot{
                                 mensaje.setReplyMarkup(kb);
                             }
                             //FIN ASIGANAR CAMPOS
+                            // PEDIR DATOS
+                            if(comando.equals("1. CÓDIGO"))
+                            {
+                                texto_mensaje = "INGRESE EL NUEVO CÓDIGO DEL PRODUCTO:";
+                                campo = "codigo";
+                            }
+                            else if(comando.equals("2. NOMBRE"))
+                            {
+                                texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL PRODUCTO:";
+                                campo = "nombre";
+                            }
+                            else if(comando.equals("3. DESCRIPCIÓN"))
+                            {
+                                texto_mensaje = "INGRESE LA NUEVA DESCRIPCIÓN DEL PRODUCTO:";
+                                campo = "descripcion";
+                            }
+                            //FIN PEDIR DATOS
+                        }
+                        else{
+                            texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE MODIFICAR";
+                            accion = "MODIFICARP";
+                        }
+                    }
+                }
