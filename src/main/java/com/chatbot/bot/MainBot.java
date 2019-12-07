@@ -395,3 +395,43 @@ public class MainBot extends  TelegramLongPollingBot{
                         mensaje.setReplyMarkup(kb);
                     }
                     //FIN ASIGANAR CAMPOS
+
+                    // PEDIR DATOS
+                    if(comando.equals("1. NOMBRE"))
+                    {
+                        texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL EMPLEADO:";
+                        campo = "nombre";
+                    }
+                    else if(comando.equals("2. DIRECCIÓN"))
+                    {
+                        texto_mensaje = "INGRESE LA NUEVA DIRECCIÓN DEL EMPLEADO:";
+                        campo = "direccion";
+                    }
+                    else if(comando.equals("3. CELULAR"))
+                    {
+                        texto_mensaje = "INGRESE EL NUEVO CELULAR DEL EMPLEADO:";
+                        campo = "celular";
+                    }
+                    else if(comando.equals("4. SUCURSAL"))
+                    {
+                        texto_mensaje = "SELECCIONE LA NUEVA SUCURSAL:";
+                        campo = "sucursal";
+                        if(serviceSucursal.listar().size() > 0)
+                        {
+                            // OBTENER EL KEYBOARD DE SUCURSALES
+                            keyboard = keyBoardsucursales(serviceSucursal.listar());
+                            kb.setKeyboard(keyboard);
+                            mensaje.setReplyMarkup(kb);
+                        }
+                        if(keyboard.size() == 0)
+                        {
+                            // SI NO TIENE ELEMENTOS MOSTRAR ERROR
+                            seccion = "INICIO";
+                            keyboard = inicio();
+                            kb.setKeyboard(keyboard);
+                            texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
+                            mensaje.setReplyMarkup(kb);
+                            limpiar();
+                        }
+                    }
+                    //FIN PEDIR DATOS
