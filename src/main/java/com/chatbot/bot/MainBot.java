@@ -435,3 +435,57 @@ public class MainBot extends  TelegramLongPollingBot{
                         }
                     }
                     //FIN PEDIR DATOS
+
+                    else if(seccion.equals("PRODUCTOS"))
+                    {
+                        /**********************
+                         *       PRODUCTOS
+                         * *******************/
+                        if(accion.equals("MODIFICARP"))
+                        {
+                            // ASIGNAR CAMPOS
+                            if(!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
+                            {
+                                System.out.println(campo + " | CAMPO");
+
+                                if(codigo_modificar == "")
+                                {
+                                    codigo_modificar = comando;
+                                    System.out.println(codigo_modificar);
+                                    texto_mensaje = serviceProducto.muestraProducto(codigo_modificar);
+                                    if(texto_mensaje != "")
+                                    {
+                                        texto_mensaje += "\n=================================";
+                                        texto_mensaje += "\nSELECIONE UN CAMPO PARA MODIFICAR";
+                                    }
+                                    else{
+                                        codigo_modificar = "";
+                                        texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. INTENTE NUEVAMENTE.";
+                                        accion = "MODIFICAR";
+                                    }
+                                }
+
+                                int respuesta = 0;
+                                if(campo.equals("codigo"))
+                                {
+                                    serviceProducto.modificarProducto("codigo",codigo_modificar,comando);
+                                    texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                                    codigo = "";
+                                }
+                                else if(campo.equals("nombre"))
+                                {
+                                    serviceProducto.modificarProducto("nombre",codigo_modificar,comando);
+                                    texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                                    nombre = "";
+                                }
+                                else if(campo.equals("descripcion"))
+                                {
+                                    serviceProducto.modificarProducto("descripcion",codigo_modificar,comando);
+                                    texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                                    descripcion = "";
+                                }
+                                keyboard = datosProductos();
+                                kb.setKeyboard(keyboard);
+                                mensaje.setReplyMarkup(kb);
+                            }
+                            //FIN ASIGANAR CAMPOS
