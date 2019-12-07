@@ -226,4 +226,45 @@ public class MainBot extends  TelegramLongPollingBot{
                     }
                 }
                 //FIN PEDIR DATOS
+                else if(seccion.equals("PRODUCTOS"))
+                {
+                    /*******************************
+                     *             PRODUCTOS
+                     * ****************************/
+                    if(accion.equals(""))
+                    {
+                        texto_mensaje = "DATOS QUE SE NECESITAN:\n1. CÓDIGO*\n2. NOMBRE*\n3. DESCRIPCIÓN\n===============================\nDEBE IR ELIGIENDO LOS CAMPOS(LOS CAMPOS CON * SON OBLIGATORIOS)";
+                    }
+                    // ASIGNAR LA ACCION ACTUAL
+                    accion = "REGISTRAR";
+
+                    // ASIGNAR CAMPOS
+                    if(!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
+                    {
+                        if(campo.equals("codigo"))
+                        {
+                            texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                            if(nombre != "" && descripcion != "")
+                            {
+                                texto_mensaje = "CORRECTO!";
+                            }
+                            codigo = comando;
+                        }
+                        else if(campo.equals("nombre"))
+                        {
+                            texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                            if(codigo != "" && descripcion != "") {
+                                texto_mensaje = "CORRECTO!";
+                            }
+                            nombre = comando;
+                        }
+                        else if(campo.equals("descripcion"))
+                        {
+                            texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                            if(codigo != "" && nombre != ""){
+                                texto_mensaje = "CORRECTO!";
+                            }
+                            descripcion = comando;
+                        }
+                    }
 
