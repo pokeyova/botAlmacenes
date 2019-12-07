@@ -268,3 +268,83 @@ public class MainBot extends  TelegramLongPollingBot{
                         }
                     }
 
+
+                    //FIN ASIGANAR CAMPOS
+
+                    // VALIDAR QUE OPCIONES SE MOSTRARAN EN EL KEYBOARD
+                    keyboard = datosProductos();
+
+                    // PEDIR DATOS
+                    if(comando.equals("1. CÓDIGO"))
+                    {
+                        texto_mensaje = "INGRESE EL CÓDIGO DEL PRODUCTO:";
+                        campo = "codigo";
+                    }
+                    else if(comando.equals("2. NOMBRE"))
+                    {
+                        texto_mensaje = "INGRESE EL NOMBRE DEL PRODUCTO:";
+                        campo = "nombre";
+                    }
+                    // FIN PEDIR DATOS OBLIGATORIOS
+
+                    if(codigo != "" && nombre != "")
+                    {
+                        if(comando.equals("CANCELAR"))
+                        {
+                            seccion = "INICIO";
+                            keyboard = inicio();
+                            kb.setKeyboard(keyboard);
+                            texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
+                            mensaje.setReplyMarkup(kb);
+                            limpiar();
+                            System.out.println("CANCELAR REGISTRO");
+                        }
+                        else if(comando.equals("GUARDAR"))
+                        {
+                            serviceProducto.registrarProducto(codigo,nombre,descripcion);
+                            texto_mensaje = "REGISTRO ÉXITOSO";
+                            System.out.println("GUARDO");
+                            seccion = "INICIO";
+                            keyboard = inicio();
+                            kb.setKeyboard(keyboard);
+                            mensaje.setReplyMarkup(kb);
+                            limpiar();
+                            seccion = "";
+                            accion = "";
+                            campo = "";
+                        }
+                        else{
+                            texto_mensaje = "DATOS\n=======\nCÓDIGO: "+codigo+"\nNOMBRE: "+nombre+"\nDESCRIPCIÓN: "+descripcion;
+                            //OPCIONES GUARDAR Y CANCELAR
+                            keyboard = opcionesGC();
+                            if(descripcion == "")
+                            {
+                                KeyboardRow row = new KeyboardRow();
+                                row.add("3. DESCRIPCIÓN");
+                                keyboard.add(row);
+                            }
+                        }
+                    }
+
+                    // DATO OPCIONAL
+                    if(comando.equals("3. DESCRIPCIÓN"))
+                    {
+                        texto_mensaje = "INGRESE LA DESCRIPCIÓN DEL PRODUCTO:";
+                        campo = "descripcion";
+                    }
+                    //FIN PEDIR DATO OPCIONAL
+
+                }
+
+                // SETTEAR LAS FILAS DEL KEYBOARD
+                kb.setKeyboard(keyboard);
+                // AGREGAR LOS BOTONES AL KEYBOARD
+                mensaje.setReplyMarkup(kb);
+                accion = "REGISTRAR";
+            }
+            else if(comando.equals("2. MODIFICAR") || accion.equals("MODIFICAR") || accion.equals("MODIFICARP"))
+            {
+                if(accion == "")
+                {
+                    accion = "MODIFICAR";
+                }
