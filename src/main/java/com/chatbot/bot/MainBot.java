@@ -184,5 +184,46 @@ public class MainBot extends  TelegramLongPollingBot{
 
                         sucursal = comando;
                     }
+                } //FIN ASIGANAR CAMPOS
+
+                // VALIDAR QUE OPCIONES SE MOSTRARAN EN EL KEYBOARD
+                keyboard = datosEmpleados();
+
+                // PEDIR DATOS
+                if(comando.equals("1. NOMBRE"))
+                {
+                    texto_mensaje = "INGRESE EL NOMBRE DEL EMPLEADO:";
+                    campo = "nombre";
                 }
+                else if(comando.equals("2. DIRECCIÓN"))
+                {
+                    texto_mensaje = "INGRESE LA DIRECCIÓN DEL EMPLEADO:";
+                    campo = "direccion";
+                }
+                else if(comando.equals("3. CELULAR"))
+                {
+                    texto_mensaje = "INGRESE EL CELULAR DEL EMPLEADO:";
+                    campo = "celular";
+                }
+                else if(comando.equals("4. SUCURSAL"))
+                {
+                    texto_mensaje = "SELECCIONE LA SUCURSAL:";
+                    campo = "sucursal";
+                    if(serviceSucursal.listar().size() > 0)
+                    {
+                        // OBTENER EL KEYBOARD DE SUCURSALES
+                        keyboard = keyBoardsucursales(serviceSucursal.listar());
+                    }
+                    if(keyboard.size() == 0)
+                    {
+                        // SI NO TIENE ELEMENTOS MOSTRAR ERROR
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
+                    }
+                }
+                //FIN PEDIR DATOS
 
