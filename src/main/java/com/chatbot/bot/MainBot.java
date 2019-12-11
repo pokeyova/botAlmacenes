@@ -639,3 +639,15 @@ public class MainBot extends  TelegramLongPollingBot{
         stock = "";
         sucursal = "";
     }
+velse{
+            if(accion.equals("ELIMINAR"))
+            {
+                serviceProducto.eliminaProducto(comando);
+                texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
+            }
+            else{
+                texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
+                accion = "ELIMINAR";
+            }
+        }
+        }
