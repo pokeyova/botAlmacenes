@@ -562,4 +562,80 @@ public class MainBot extends  TelegramLongPollingBot{
                 if(texto_mensaje == "")
                 {
                     texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. POR FAVOR INGRESE OTRO ID/CÓDIGO";
+                }else{
+                    accion = "";
                 }
+            }
+            else{
+                texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE VER";
+                accion = "MOSTRAR";
+            }
+        }
+    }
+    else if(comando.equals("5. LISTAR"))
+    {
+        if(seccion == "EMPLEADOS"){
+            texto_mensaje = serviceEmpleado.listaEmpleados();
+        }
+        else{
+            texto_mensaje = serviceProducto.listaProductos();
+        }
+    }
+    else if(comando.equals("6. PRODUCTOS SUCURSAL"))
+    {
+        texto_mensaje = serviceProductoSucursal.listaProductoSucursal();
+    }
+    else if(accion.equals("ID"))
+    {
+        if(!comando.equals("2. MODIFICAR"))
+        {
+            id = Integer.parseInt(comando);
+            texto_mensaje = serviceEmpleado.muestraEmpleado(id);
+            if(texto_mensaje != "")
+            {
+                texto_mensaje += "\n=======================================";
+                texto_mensaje += "\nSELECCIONE EL DATO QUE DESEA MODIFICAR";
+                texto_mensaje += "\n=======================================";
+                keyboard = datosEmpleados();
+                kb.setKeyboard(keyboard);
+                mensaje.setReplyMarkup(kb);
+                accion = "MODIFICAR";
+            }
+            else{
+                texto_mensaje += "\nNO SE ENCONTRO NINGUN EMPLEADO CON ESE ID. POR FAVOR INTENTE CON OTRO ID";
+            }
+        }
+        else{
+            texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
+        }
+    }
+    else if(comando.equals("/start"))
+    {
+        texto_mensaje = "BIENVENIDO "+ update.getMessage().getFrom().getFirstName().toUpperCase();
+    }
+
+        mensaje.setText(texto_mensaje);
+        // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
+        mensaje.setChatId(update.getMessage().getChatId());
+        // EJECUTAR EL MENSAJE
+        try {
+            execute(mensaje);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+        System.out.println("FIN");
+    }
+
+    public void limpiar()
+    {
+        codigo = "";
+        codigo_modificar = "";
+        nombre = "";
+        direccion = "";
+        celular = "";
+        tipo = "";
+        descripcion = "";
+        id = 0;
+        stock = "";
+        sucursal = "";
+    }
