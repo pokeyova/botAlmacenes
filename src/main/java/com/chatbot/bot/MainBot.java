@@ -639,3 +639,7 @@ public class MainBot extends  TelegramLongPollingBot{
         stock = "";
         sucursal = "";
     }
+
+     /**************
+     * FIN SECCIÓN
+     * *************/
