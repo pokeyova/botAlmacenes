@@ -639,8 +639,11 @@ public class MainBot extends  TelegramLongPollingBot{
         stock = "";
         sucursal = "";
     }
-<<<<<<< HEAD
-velse{
+            /**************
+             * FIN SECCIÓN
+             * *************/
+
+else{
             if(accion.equals("ELIMINAR"))
             {
                 serviceProducto.eliminaProducto(comando);
@@ -652,9 +655,103 @@ velse{
             }
         }
         }
-=======
 
-     /**************
-     * FIN SECCIÓN
-     * *************/
->>>>>>> 27d8e8bc84be2083cc7bc0aaea4d1b9461b8d60d
+            public List<KeyboardRow> opcionesGC()
+        {
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            row.add("GUARDAR");//opcion1
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("CANCELAR");//opcion1
+            keyboard.add(row);
+            return keyboard;
+        }
+
+        public List<KeyboardRow> datosEmpleados()
+        {
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            System.out.println(nombre);
+            System.out.println(direccion);
+            System.out.println(celular);
+            System.out.println(sucursal);
+
+            if(nombre == "")
+            {
+                row.add("1. NOMBRE");//opcion1
+                keyboard.add(row);
+            }
+            if(direccion == "")
+            {
+                row = new KeyboardRow();
+                row.add("2. DIRECCIÓN");//Opcion2
+                keyboard.add(row);
+            }
+            if(celular == "")
+            {
+                row = new KeyboardRow();
+                row.add("3. CELULAR");//Opcion3
+                keyboard.add(row);
+            }
+            if(sucursal == "")
+            {
+                row = new KeyboardRow();
+                row.add("4. SUCURSAL");//Opcion3
+                keyboard.add(row);
+            }
+            return keyboard;
+        }
+
+        public List<KeyboardRow> datosProductos()
+        {
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            if(codigo == "")
+            {
+                row.add("1. CÓDIGO");//opcion1
+                keyboard.add(row);
+            }
+            if(nombre == "")
+            {
+                row = new KeyboardRow();
+                row.add("2. NOMBRE");//Opcion2
+                keyboard.add(row);
+            }
+            if(descripcion == "")
+            {
+                row = new KeyboardRow();
+                row.add("3. DESCRIPCIÓN");//Opcion3
+                keyboard.add(row);
+            }
+            return keyboard;
+        }
+
+        public List<KeyboardRow> acciones()
+        {
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            // AGREGAR LOS DATOS A LA LISTA
+            row.add("1. REGISTRAR");//opcion1
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("2. MODIFICAR");//Opcion2
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("3. ELIMINAR");//Opcion3
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("4. MOSTRAR");//Opcion4
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("5. LISTAR");//Opcion5
+            keyboard.add(row);
+            return keyboard;
+        }
+
+        /***********************
+         * FUNCIONES PRODUCTOS
+         * **********************/
+
+    }
+
