@@ -639,6 +639,7 @@ public class MainBot extends  TelegramLongPollingBot{
         stock = "";
         sucursal = "";
     }
+<<<<<<< HEAD
 velse{
             if(accion.equals("ELIMINAR"))
             {
@@ -651,3 +652,9 @@ velse{
             }
         }
         }
+=======
+
+     /**************
+     * FIN SECCIÓN
+     * *************/
+>>>>>>> 27d8e8bc84be2083cc7bc0aaea4d1b9461b8d60d
