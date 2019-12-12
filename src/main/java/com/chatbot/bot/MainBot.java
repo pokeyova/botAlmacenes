@@ -765,18 +765,47 @@ public class MainBot extends  TelegramLongPollingBot{
              * FIN SECCIÓN
              * *************/
 
-else{
-            if(accion.equals("ELIMINAR"))
+             public List<KeyboardRow> inicio()
+             {
+               List<KeyboardRow> keyboard = new ArrayList();
+               KeyboardRow row = new KeyboardRow();
+               row.add("1. EMPLEADOS");//Opcion1
+               // AGREGAR LOS DATOS A LA LISTA
+               keyboard.add(row);
+               row = new KeyboardRow();
+               row.add("2. PRODUCTOS");//Opcion2
+               keyboard.add(row);
+               return keyboard;
+             }
+
+   /* public List<KeyboardRow> empleados()
+    {
+
+    }
+
+    public List<KeyboardRow> productos()
+    {
+
+    }*/
+
+    public List<KeyboardRow> keyBoardsucursales(List<Sucursales> sucursales)
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        try{
+            for(Sucursales sucursal : sucursales)
             {
-                serviceProducto.eliminaProducto(comando);
-                texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
-            }
-            else{
-                texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
-                accion = "ELIMINAR";
+                row = new KeyboardRow();
+                row.add(sucursal.getNombre());//sucursal
+                keyboard.add(row);
             }
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
+        return keyboard;
+    }
 
             public List<KeyboardRow> opcionesGC()
         {
