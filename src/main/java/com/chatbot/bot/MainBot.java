@@ -232,6 +232,7 @@ public class MainBot extends  TelegramLongPollingBot{
                     }
                 }
                 //FIN PEDIR DATOS
+
                 if(nombre != "" && direccion != "" && celular != "" && sucursal != "")
                 {
                     if(comando.equals("CANCELAR"))
@@ -286,45 +287,43 @@ public class MainBot extends  TelegramLongPollingBot{
                     /*******************************
                      *             PRODUCTOS
                      * ****************************/
-                    if(accion.equals(""))
+                if(accion.equals(""))
+                {
+                    texto_mensaje = "DATOS QUE SE NECESITAN:\n1. CÓDIGO*\n2. NOMBRE*\n3. DESCRIPCIÓN\n===============================\nDEBE IR ELIGIENDO LOS CAMPOS(LOS CAMPOS CON * SON OBLIGATORIOS)";
+                }
+                // ASIGNAR LA ACCION ACTUAL
+                accion = "REGISTRAR";
+
+                // ASIGNAR CAMPOS
+                if(!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
+                {
+                    if(campo.equals("codigo"))
                     {
-                        texto_mensaje = "DATOS QUE SE NECESITAN:\n1. CÓDIGO*\n2. NOMBRE*\n3. DESCRIPCIÓN\n===============================\nDEBE IR ELIGIENDO LOS CAMPOS(LOS CAMPOS CON * SON OBLIGATORIOS)";
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(nombre != "" && descripcion != "")
+                        {
+                            texto_mensaje = "CORRECTO!";
+                        }
+                        codigo = comando;
                     }
-                    // ASIGNAR LA ACCION ACTUAL
-                    accion = "REGISTRAR";
-
-                    // ASIGNAR CAMPOS
-                    if(!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
+                    else if(campo.equals("nombre"))
                     {
-                        if(campo.equals("codigo"))
-                        {
-                            texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                            if(nombre != "" && descripcion != "")
-                            {
-                                texto_mensaje = "CORRECTO!";
-                            }
-                            codigo = comando;
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(codigo != "" && descripcion != "") {
+                            texto_mensaje = "CORRECTO!";
                         }
-                        else if(campo.equals("nombre"))
-                        {
-                            texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                            if(codigo != "" && descripcion != "") {
-                                texto_mensaje = "CORRECTO!";
-                            }
-                            nombre = comando;
-                        }
-                        else if(campo.equals("descripcion"))
-                        {
-                            texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                            if(codigo != "" && nombre != ""){
-                                texto_mensaje = "CORRECTO!";
-                            }
-                            descripcion = comando;
-                        }
+                        nombre = comando;
                     }
-
-
-                    //FIN ASIGANAR CAMPOS
+                    else if(campo.equals("descripcion"))
+                    {
+                        texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
+                        if(codigo != "" && nombre != ""){
+                            texto_mensaje = "CORRECTO!";
+                        }
+                        descripcion = comando;
+                    }
+                }
+                //FIN ASIGANAR CAMPOS
 
                     // VALIDAR QUE OPCIONES SE MOSTRARAN EN EL KEYBOARD
                     keyboard = datosProductos();
@@ -381,114 +380,115 @@ public class MainBot extends  TelegramLongPollingBot{
                         }
                     }
 
-                    // DATO OPCIONAL
-                    if(comando.equals("3. DESCRIPCIÓN"))
-                    {
-                        texto_mensaje = "INGRESE LA DESCRIPCIÓN DEL PRODUCTO:";
-                        campo = "descripcion";
-                    }
-                    //FIN PEDIR DATO OPCIONAL
-
-                }
-
-                // SETTEAR LAS FILAS DEL KEYBOARD
-                kb.setKeyboard(keyboard);
-                // AGREGAR LOS BOTONES AL KEYBOARD
-                mensaje.setReplyMarkup(kb);
-                accion = "REGISTRAR";
-            }
-            else if(comando.equals("2. MODIFICAR") || accion.equals("MODIFICAR") || accion.equals("MODIFICARP"))
-            {
-                if(accion == "")
+                // DATO OPCIONAL
+                if(comando.equals("3. DESCRIPCIÓN"))
                 {
-                    accion = "MODIFICAR";
+                    texto_mensaje = "INGRESE LA DESCRIPCIÓN DEL PRODUCTO:";
+                    campo = "descripcion";
                 }
+                //FIN PEDIR DATO OPCIONAL
 
-                if(seccion.equals("EMPLEADOS")) {
+            }
+
+            // SETTEAR LAS FILAS DEL KEYBOARD
+            kb.setKeyboard(keyboard);
+            // AGREGAR LOS BOTONES AL KEYBOARD
+            mensaje.setReplyMarkup(kb);
+            accion = "REGISTRAR";
+        }
+        else if(comando.equals("2. MODIFICAR") || accion.equals("MODIFICAR") || accion.equals("MODIFICARP"))
+        {
+            if(accion == "")
+            {
+                accion = "MODIFICAR";
+            }
+
+            if(seccion.equals("EMPLEADOS"))
+            {
                     /**********************
                      *       EMPLEADOS
                      * *******************/
                     // ASIGNAR LA ACCION A ID PARA SOLICITAR QUE SE INGRESE
-                    if (id == 0) {
-                        texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
-                        accion = "ID";
-                    }
+                if(id == 0)
+                {
+                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
+                    accion = "ID";
+                }
 
-                    // ASIGNAR CAMPOS
-                    if (!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) 
+                // ASIGNAR CAMPOS
+                if(!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL")  && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
+                {
+                    int respuesta = 0;
+                    if(campo.equals("nombre"))
                     {
-                        int respuesta = 0;
-                        if (campo.equals("nombre")) 
-                        {
-                            serviceEmpleado.modificarEmpleado("nombre", id, comando);
-                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                            nombre = "";
-                        } 
-                        else if (campo.equals("direccion")) 
-                        {
-                            serviceEmpleado.modificarEmpleado("direccion", id, comando);
-                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                            direccion = "";
-                        } 
-                        else if (campo.equals("celular")) 
-                        {
-                            serviceEmpleado.modificarEmpleado("celular", id, comando);
-                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                            celular = "";
-                        } 
-                        else if (campo.equals("sucursal")) 
-                        {
-                            String sucursal_id = serviceSucursal.getIdSucursalByName(comando) + "";
-                            serviceEmpleado.modificarEmpleado("sucursal_id", id, sucursal_id);
-                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                            sucursal = "";
-                        }
-                        keyboard = datosEmpleados();
+                        serviceEmpleado.modificarEmpleado("nombre",id,comando);
+                        texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                        nombre = "";
+                    }
+                    else if(campo.equals("direccion"))
+                    {
+                        serviceEmpleado.modificarEmpleado("direccion",id,comando);
+                        texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                        direccion = "";
+                    }
+                    else if(campo.equals("celular"))
+                    {
+                        serviceEmpleado.modificarEmpleado("celular",id,comando);
+                        texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                        celular = "";
+                    }
+                    else if(campo.equals("sucursal"))
+                    {
+                        String sucursal_id = serviceSucursal.getIdSucursalByName(comando)+"";
+                        serviceEmpleado.modificarEmpleado("sucursal_id",id,sucursal_id);
+                        texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                        sucursal = "";
+                    }
+                    keyboard = datosEmpleados();
+                    kb.setKeyboard(keyboard);
+                    mensaje.setReplyMarkup(kb);
+                }
+                //FIN ASIGANAR CAMPOS
+
+                // PEDIR DATOS
+                if(comando.equals("1. NOMBRE"))
+                {
+                    texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL EMPLEADO:";
+                    campo = "nombre";
+                }
+                else if(comando.equals("2. DIRECCIÓN"))
+                {
+                    texto_mensaje = "INGRESE LA NUEVA DIRECCIÓN DEL EMPLEADO:";
+                    campo = "direccion";
+                }
+                else if(comando.equals("3. CELULAR"))
+                {
+                    texto_mensaje = "INGRESE EL NUEVO CELULAR DEL EMPLEADO:";
+                    campo = "celular";
+                }
+                else if(comando.equals("4. SUCURSAL"))
+                {
+                    texto_mensaje = "SELECCIONE LA NUEVA SUCURSAL:";
+                    campo = "sucursal";
+                    if(serviceSucursal.listar().size() > 0)
+                    {
+                        // OBTENER EL KEYBOARD DE SUCURSALES
+                        keyboard = keyBoardsucursales(serviceSucursal.listar());
                         kb.setKeyboard(keyboard);
                         mensaje.setReplyMarkup(kb);
                     }
-                
-                    //FIN ASIGANAR CAMPOS
-
-                    // PEDIR DATOS
-                    if(comando.equals("1. NOMBRE"))
+                    if(keyboard.size() == 0)
                     {
-                        texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL EMPLEADO:";
-                        campo = "nombre";
+                        // SI NO TIENE ELEMENTOS MOSTRAR ERROR
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
                     }
-                    else if(comando.equals("2. DIRECCIÓN"))
-                    {
-                        texto_mensaje = "INGRESE LA NUEVA DIRECCIÓN DEL EMPLEADO:";
-                        campo = "direccion";
-                    }
-                    else if(comando.equals("3. CELULAR"))
-                    {
-                        texto_mensaje = "INGRESE EL NUEVO CELULAR DEL EMPLEADO:";
-                        campo = "celular";
-                    }
-                    else if(comando.equals("4. SUCURSAL"))
-                    {
-                        texto_mensaje = "SELECCIONE LA NUEVA SUCURSAL:";
-                        campo = "sucursal";
-                        if(serviceSucursal.listar().size() > 0)
-                        {
-                            // OBTENER EL KEYBOARD DE SUCURSALES
-                            keyboard = keyBoardsucursales(serviceSucursal.listar());
-                            kb.setKeyboard(keyboard);
-                            mensaje.setReplyMarkup(kb);
-                        }
-                        if(keyboard.size() == 0)
-                        {
-                            // SI NO TIENE ELEMENTOS MOSTRAR ERROR
-                            seccion = "INICIO";
-                            keyboard = inicio();
-                            kb.setKeyboard(keyboard);
-                            texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
-                            mensaje.setReplyMarkup(kb);
-                            limpiar();
-                        }
-                    }
-                    //FIN PEDIR DATOS
+                }
+                //FIN PEDIR DATOS
 
                     else if(seccion.equals("PRODUCTOS"))
                     {
