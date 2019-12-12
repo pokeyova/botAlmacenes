@@ -1,7 +1,5 @@
 package com.chatbot.repository;
 
-package com.chatbot.repository;
-
 import com.chatbot.model.ProductoSucursal;
 import com.chatbot.model.Productos;
 import org.springframework.data.jpa.repository.JpaRepository;
