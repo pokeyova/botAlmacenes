@@ -566,7 +566,32 @@ public class MainBot extends  TelegramLongPollingBot{
                         }
                     }
                 }
-            if(comando.equals("4. MOSTRAR") || accion.equals("MOSTRAR"))
+            else if(comando.equals("4. ELIMINAR") || accion.equals("ELIMINAR"))
+        {
+            if(seccion == "EMPLEADOS"){
+                if(accion.equals("ELIMINAR"))
+                {
+                    serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
+                    texto_mensaje = "EMPLEADO ELIMINADO CON ÉXITO!";
+                }
+                else{
+                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE ELIMINAR";
+                    accion = "ELIMINAR";
+                }
+            }
+            else{
+                if(accion.equals("ELIMINAR"))
+                {
+                    serviceProducto.eliminaProducto(comando);
+                    texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
+                }
+                else{
+                    texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
+                    accion = "ELIMINAR";
+                }
+            }
+        }
+        else if(comando.equals("5. MOSTRAR") || accion.equals("MOSTRAR"))
             {
                 if(seccion == "EMPLEADOS"){
                     if(accion.equals("MOSTRAR"))
