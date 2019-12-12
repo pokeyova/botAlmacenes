@@ -35,6 +35,8 @@ public class MainBot extends  TelegramLongPollingBot{
     public String celular = "";
     public String tipo = "";
     public String descripcion = "";
+    int v_sucursal_id = 0;
+    int cantidad_productos = 0;
     public boolean sw_mensajeMempleados = false;
     public boolean sw_mensajeMProductos = false;
 
