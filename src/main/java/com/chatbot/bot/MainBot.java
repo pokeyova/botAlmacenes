@@ -414,21 +414,29 @@ public class MainBot extends  TelegramLongPollingBot{
                     }
 
                     // ASIGNAR CAMPOS
-                    if (!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
+                    if (!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) 
+                    {
                         int respuesta = 0;
-                        if (campo.equals("nombre")) {
+                        if (campo.equals("nombre")) 
+                        {
                             serviceEmpleado.modificarEmpleado("nombre", id, comando);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             nombre = "";
-                        } else if (campo.equals("direccion")) {
+                        } 
+                        else if (campo.equals("direccion")) 
+                        {
                             serviceEmpleado.modificarEmpleado("direccion", id, comando);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             direccion = "";
-                        } else if (campo.equals("celular")) {
+                        } 
+                        else if (campo.equals("celular")) 
+                        {
                             serviceEmpleado.modificarEmpleado("celular", id, comando);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                             celular = "";
-                        } else if (campo.equals("sucursal")) {
+                        } 
+                        else if (campo.equals("sucursal")) 
+                        {
                             String sucursal_id = serviceSucursal.getIdSucursalByName(comando) + "";
                             serviceEmpleado.modificarEmpleado("sucursal_id", id, sucursal_id);
                             texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
@@ -438,7 +446,7 @@ public class MainBot extends  TelegramLongPollingBot{
                         kb.setKeyboard(keyboard);
                         mensaje.setReplyMarkup(kb);
                     }
-                }
+                
                     //FIN ASIGANAR CAMPOS
 
                     // PEDIR DATOS
