@@ -231,8 +231,57 @@ public class MainBot extends  TelegramLongPollingBot{
                     }
                 }
                 //FIN PEDIR DATOS
-                else if(seccion.equals("PRODUCTOS"))
+                if(nombre != "" && direccion != "" && celular != "" && sucursal != "")
                 {
+                    if(comando.equals("CANCELAR"))
+                    {
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
+                        System.out.println("CANCELAR REGISTRO");
+                    }
+                    else if(comando.equals("GUARDAR"))
+                    {
+                        int resp=0;
+                        //OBTENER LA FECHA
+                        Date fecha = new Date();
+                        DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                        String fecha_actual = formato.format(fecha);
+                        //OBTENER EL ID DE LA SUCURSAL
+                        int sucursal_id = serviceSucursal.getIdSucursalByName(sucursal);
+                        Empleados empleadoNuevo = null;
+                        empleadoNuevo = serviceEmpleado.registrarEmpleado(sucursal_id,nombre,direccion,celular,"EMPLEADO",fecha_actual);
+                        if(empleadoNuevo != null)
+                        {
+                            texto_mensaje = "REGISTRO ÉXITOSO";
+                            System.out.println("GUARDO");
+                        }
+                        else{
+                            texto_mensaje = "ALGO SALIÓ MAL. INTENTE NUEVAMENTE POR FAVOR";
+                        }
+
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
+                        seccion = "";
+                        accion = "";
+                        campo = "";
+                    }
+                    else{
+                        texto_mensaje = "DATOS\n=======\nNOMBRE: "+nombre+"\nDIRECCIÓN: "+direccion+"\nCELULAR: "+celular+"\nSUCURSAL: "+sucursal;
+                        //OPCIONES GUARDAR Y CANCELAR
+                        keyboard = opcionesGC();
+                    }
+                }
+            }
+            else if(seccion.equals("PRODUCTOS"))
+            {
+
                     /*******************************
                      *             PRODUCTOS
                      * ****************************/
