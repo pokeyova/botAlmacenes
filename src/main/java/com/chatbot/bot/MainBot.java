@@ -628,7 +628,7 @@ public class MainBot extends  TelegramLongPollingBot{
             }
         }
     }
-    else if(comando.equals("5. LISTAR"))
+    else if(comando.equals("6. LISTAR"))
     {
         if(seccion == "EMPLEADOS"){
             texto_mensaje = serviceEmpleado.listaEmpleados();
@@ -641,6 +641,72 @@ public class MainBot extends  TelegramLongPollingBot{
     {
         texto_mensaje = serviceProductoSucursal.listaProductoSucursal();
     }
+    else if(comando.equals("7. REGISTRAR SALIDA") || accion.equals("REGISTRAR_SALIDA") || accion.equals("REGISTRAR_SALIDA_PRODUCTO") || accion.equals("REGISTRAR_SALIDA_STOCK"))
+        {
+            if(accion.equals("REGISTRAR_SALIDA"))
+            {
+                v_sucursal_id = serviceSucursal.getIdSucursalByName(comando);
+                texto_mensaje = serviceProductoSucursal.listaProductosPorSucursal(v_sucursal_id);
+                if(texto_mensaje == "")
+                {
+                    texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO EN ESTA SUCURSAL INTENTE CON OTRA";
+                    keyboard = keyBoardsucursales(serviceSucursal.listar());
+                    accion = "REGISTRAR_SALIDA";
+                }
+                else{
+                    texto_mensaje += "\n======================================";
+                    texto_mensaje += "\nINGRESE EL ID/CÓDIGO DEL PRODUCTO";
+                    accion = "REGISTRAR_SALIDA_PRODUCTO";
+                }
+            }
+            else if(accion.equals("REGISTRAR_SALIDA_PRODUCTO"))
+            {
+                codigo = comando;
+                texto_mensaje += "\nINGRESE LA CANTIDAD DE PRODUCTOS";
+                accion = "REGISTRAR_SALIDA_STOCK";
+            }
+            else if(accion.equals("REGISTRAR_SALIDA_STOCK"))
+            {
+                cantidad_productos = Integer.parseInt(comando);
+                serviceProductoSucursal.actualizarStock(v_sucursal_id, codigo, cantidad_productos);
+                texto_mensaje += "\nREGISTRO EXITOSO";
+
+                seccion = "INICIO";
+                keyboard = inicio();
+                kb.setKeyboard(keyboard);
+                mensaje.setReplyMarkup(kb);
+                limpiar();
+                seccion = "";
+                accion = "";
+                campo = "";
+                cantidad_productos =0;
+                codigo = "";
+                v_sucursal_id = 0;
+            }
+            else{
+                texto_mensaje = "SELECCIONE LA SUCURSAL DONDE SE REGISTRARA LA SALIDA";
+                if(serviceSucursal.listar().size() > 0)
+                {
+                    // OBTENER EL KEYBOARD DE SUCURSALES
+                    keyboard = keyBoardsucursales(serviceSucursal.listar());
+                    accion = "REGISTRAR_SALIDA";
+                }
+                else
+                {
+                    // SI NO TIENE ELEMENTOS MOSTRAR ERROR
+                    seccion = "INICIO";
+                    keyboard = inicio();
+                    kb.setKeyboard(keyboard);
+                    texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
+                    mensaje.setReplyMarkup(kb);
+                    limpiar();
+                    accion = "";
+                }
+            }
+            kb.setKeyboard(keyboard);
+            mensaje.setReplyMarkup(kb);
+        }
+
     else if(accion.equals("ID"))
     {
         if(!comando.equals("2. MODIFICAR"))
