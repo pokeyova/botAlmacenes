@@ -48,3 +48,28 @@ public class ProductoSucursalService implements IProductoSucursalService{
         }
         return lista;
     }
+
+    @Override
+    public void actualizarStock(int sucursal_id, String producto_id, int cantidad) {
+        Productos producto = null;
+        producto = repoProducto.getProductoByCodigo(producto_id);
+        if(isNumeric(producto_id))
+        {
+            producto = repoProducto.findById(Integer.parseInt(producto_id)).get();
+        }
+
+        ProductoSucursal ps = repoPS.ProductoSucursalInfo(sucursal_id, producto.getId());
+        ps.setStock(ps.getStock() - cantidad);
+        repoPS.save(ps);
+    }
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+}
+
