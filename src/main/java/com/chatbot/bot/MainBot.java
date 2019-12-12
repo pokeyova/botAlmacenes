@@ -129,6 +129,9 @@ public class MainBot extends  TelegramLongPollingBot{
             KeyboardRow row = new KeyboardRow();
             row.add("6. PRODUCTOS SUCURSAL");
             keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("7. REGISTRAR SALIDA");
+            keyboard.add(row);
             kb.setKeyboard(keyboard);
             texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
             mensaje.setReplyMarkup(kb);
