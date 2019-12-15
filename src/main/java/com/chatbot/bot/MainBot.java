@@ -615,7 +615,7 @@ public class MainBot extends  TelegramLongPollingBot {
             }
             System.out.println("FIN");
         }
-
+    }
         public void limpiar ()
         {
             codigo = "";
@@ -763,5 +763,4 @@ public class MainBot extends  TelegramLongPollingBot {
          * **********************/
 
     }
-}
 
