@@ -84,11 +84,7 @@ public class MainBot extends  TelegramLongPollingBot {
      * ***************************/
 
     // Menu inicial
-<<<<<<< HEAD
-    public void menuInicial(String comando,Update update) {
-=======
     public void menuInicial(String comando, Update update) {
->>>>>>> 708089eafabd0f4e2a61eb97935f0cb461630638
         // RESPONDER AL USUARIO
         SendMessage mensaje = new SendMessage();
         // ARMAR EL MENSAJE
@@ -254,7 +250,6 @@ public class MainBot extends  TelegramLongPollingBot {
                     }
                 }
             } else if (seccion.equals("PRODUCTOS")) {
-
                 /*******************************
                  *             PRODUCTOS
                  * ****************************/
@@ -420,256 +415,235 @@ public class MainBot extends  TelegramLongPollingBot {
                     }
                 }
                 //FIN PEDIR DATOS
+            } else if (seccion.equals("PRODUCTOS")) {
+                /**********************
+                 *       PRODUCTOS
+                 * *******************/
+                if (accion.equals("MODIFICARP")) {
+                    // ASIGNAR CAMPOS
+                    if (!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
+                        System.out.println(campo + " | CAMPO");
 
-                else if (seccion.equals("PRODUCTOS")) {
-                    /**********************
-                     *       PRODUCTOS
-                     * *******************/
-                    if (accion.equals("MODIFICARP")) {
-                        // ASIGNAR CAMPOS
-                        if (!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
-                            System.out.println(campo + " | CAMPO");
-
-                            if (codigo_modificar == "") {
-                                codigo_modificar = comando;
-                                System.out.println(codigo_modificar);
-                                texto_mensaje = serviceProducto.muestraProducto(codigo_modificar);
-                                if (texto_mensaje != "") {
-                                    texto_mensaje += "\n=================================";
-                                    texto_mensaje += "\nSELECIONE UN CAMPO PARA MODIFICAR";
-                                } else {
-                                    codigo_modificar = "";
-                                    texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. INTENTE NUEVAMENTE.";
-                                    accion = "MODIFICAR";
-                                }
+                        if (codigo_modificar == "") {
+                            codigo_modificar = comando;
+                            System.out.println(codigo_modificar);
+                            texto_mensaje = serviceProducto.muestraProducto(codigo_modificar);
+                            if (texto_mensaje != "") {
+                                texto_mensaje += "\n=================================";
+                                texto_mensaje += "\nSELECIONE UN CAMPO PARA MODIFICAR";
+                            } else {
+                                codigo_modificar = "";
+                                texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. INTENTE NUEVAMENTE.";
+                                accion = "MODIFICAR";
                             }
+                        }
 
-                            int respuesta = 0;
-                            if (campo.equals("codigo")) {
-                                serviceProducto.modificarProducto("codigo", codigo_modificar, comando);
-                                texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                                codigo = "";
-                            } else if (campo.equals("nombre")) {
-                                serviceProducto.modificarProducto("nombre", codigo_modificar, comando);
-                                texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                                nombre = "";
-                            } else if (campo.equals("descripcion")) {
-                                serviceProducto.modificarProducto("descripcion", codigo_modificar, comando);
-                                texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                                descripcion = "";
-                            }
-                            keyboard = datosProductos();
-                            kb.setKeyboard(keyboard);
-                            mensaje.setReplyMarkup(kb);
+                        int respuesta = 0;
+                        if (campo.equals("codigo")) {
+                            serviceProducto.modificarProducto("codigo", codigo_modificar, comando);
+                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                            codigo = "";
+                        } else if (campo.equals("nombre")) {
+                            serviceProducto.modificarProducto("nombre", codigo_modificar, comando);
+                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                            nombre = "";
+                        } else if (campo.equals("descripcion")) {
+                            serviceProducto.modificarProducto("descripcion", codigo_modificar, comando);
+                            texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                            descripcion = "";
                         }
-                        //FIN ASIGANAR CAMPOS
-                        // PEDIR DATOS
-                        if (comando.equals("1. CÓDIGO")) {
-                            texto_mensaje = "INGRESE EL NUEVO CÓDIGO DEL PRODUCTO:";
-                            campo = "codigo";
-                        } else if (comando.equals("2. NOMBRE")) {
-                            texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL PRODUCTO:";
-                            campo = "nombre";
-                        } else if (comando.equals("3. DESCRIPCIÓN")) {
-                            texto_mensaje = "INGRESE LA NUEVA DESCRIPCIÓN DEL PRODUCTO:";
-                            campo = "descripcion";
-                        }
-                        //FIN PEDIR DATOS
-                    } else {
-                        texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE MODIFICAR";
-                        accion = "MODIFICARP";
+                        keyboard = datosProductos();
+                        kb.setKeyboard(keyboard);
+                        mensaje.setReplyMarkup(kb);
                     }
-                }
-<<<<<<<HEAD
-            } else if (comando.equals("4. ELIMINAR") || accion.equals("ELIMINAR")) {
-=======
-            } else if (comando.equals("3. ELIMINAR") || accion.equals("ELIMINAR")) {
->>>>>>>708089e afabd0f4e2a61eb97935f0cb461630638
-                if (seccion == "EMPLEADOS") {
-                    if (accion.equals("ELIMINAR")) {
-                        serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
-                        texto_mensaje = "EMPLEADO ELIMINADO CON ÉXITO!";
-                    } else {
-                        texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE ELIMINAR";
-                        accion = "ELIMINAR";
+                    //FIN ASIGANAR CAMPOS
+
+                    // PEDIR DATOS
+                    if (comando.equals("1. CÓDIGO")) {
+                        texto_mensaje = "INGRESE EL NUEVO CÓDIGO DEL PRODUCTO:";
+                        campo = "codigo";
+                    } else if (comando.equals("2. NOMBRE")) {
+                        texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL PRODUCTO:";
+                        campo = "nombre";
+                    } else if (comando.equals("3. DESCRIPCIÓN")) {
+                        texto_mensaje = "INGRESE LA NUEVA DESCRIPCIÓN DEL PRODUCTO:";
+                        campo = "descripcion";
                     }
+                    //FIN PEDIR DATOS
                 } else {
-                    if (accion.equals("ELIMINAR")) {
-                        serviceProducto.eliminaProducto(comando);
-                        texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
-                    } else {
-                        texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
-                        accion = "ELIMINAR";
-                    }
+                    texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE MODIFICAR";
+                    accion = "MODIFICARP";
                 }
-<<<<<<<HEAD
-            } else if (comando.equals("5. MOSTRAR") || accion.equals("MOSTRAR")) {
-=======
-            } else if (comando.equals("4. MOSTRAR") || accion.equals("MOSTRAR")) {
->>>>>>>708089e afabd0f4e2a61eb97935f0cb461630638
-                if (seccion == "EMPLEADOS") {
-                    if (accion.equals("MOSTRAR")) {
-                        texto_mensaje = serviceEmpleado.muestraEmpleado(Integer.parseInt(comando));
-                        if (texto_mensaje == "") {
-                            texto_mensaje = "NO SE ENCONTRÓ NINGUN EMPLEADO CON ESE ID. POR FAVOR INGRESE OTRO ID";
-                        } else {
-                            accion = "";
-                        }
-                    } else {
-                        texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE VER";
-                        accion = "MOSTRAR";
-                    }
+            }
+        } else if (comando.equals("3. ELIMINAR") || accion.equals("ELIMINAR")) {
+            if (seccion == "EMPLEADOS") {
+                if (accion.equals("ELIMINAR")) {
+                    serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
+                    texto_mensaje = "EMPLEADO ELIMINADO CON ÉXITO!";
                 } else {
-                    if (accion.equals("MOSTRAR")) {
-                        texto_mensaje = serviceProducto.muestraProducto(comando);
-                        if (texto_mensaje == "") {
-                            texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. POR FAVOR INGRESE OTRO ID/CÓDIGO";
-                        } else {
-                            accion = "";
-                        }
-                    } else {
-                        texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE VER";
-                        accion = "MOSTRAR";
-                    }
+                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE ELIMINAR";
+                    accion = "ELIMINAR";
                 }
-            } else if (comando.equals("6. LISTAR")) {
-                if (seccion == "EMPLEADOS") {
-                    texto_mensaje = serviceEmpleado.listaEmpleados();
+            } else {
+                if (accion.equals("ELIMINAR")) {
+                    serviceProducto.eliminaProducto(comando);
+                    texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
                 } else {
-                    texto_mensaje = serviceProducto.listaProductos();
+                    texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
+                    accion = "ELIMINAR";
                 }
-            } else if (comando.equals("6. PRODUCTOS SUCURSAL")) {
-                texto_mensaje = serviceProductoSucursal.listaProductoSucursal();
-            } else if (comando.equals("7. REGISTRAR SALIDA") || accion.equals("REGISTRAR_SALIDA") || accion.equals("REGISTRAR_SALIDA_PRODUCTO") || accion.equals("REGISTRAR_SALIDA_STOCK")) {
-                if (accion.equals("REGISTRAR_SALIDA")) {
-                    v_sucursal_id = serviceSucursal.getIdSucursalByName(comando);
-                    texto_mensaje = serviceProductoSucursal.listaProductosPorSucursal(v_sucursal_id);
+            }
+        } else if (comando.equals("4. MOSTRAR") || accion.equals("MOSTRAR")) {
+            if (seccion == "EMPLEADOS") {
+                if (accion.equals("MOSTRAR")) {
+                    texto_mensaje = serviceEmpleado.muestraEmpleado(Integer.parseInt(comando));
                     if (texto_mensaje == "") {
-                        texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO EN ESTA SUCURSAL INTENTE CON OTRA";
-                        keyboard = keyBoardsucursales(serviceSucursal.listar());
-                        accion = "REGISTRAR_SALIDA";
+                        texto_mensaje = "NO SE ENCONTRÓ NINGUN EMPLEADO CON ESE ID. POR FAVOR INGRESE OTRO ID";
                     } else {
-                        texto_mensaje += "\n======================================";
-                        texto_mensaje += "\nINGRESE EL ID/CÓDIGO DEL PRODUCTO";
-                        accion = "REGISTRAR_SALIDA_PRODUCTO";
+                        accion = "";
                     }
-                } else if (accion.equals("REGISTRAR_SALIDA_PRODUCTO")) {
-                    codigo = comando;
-                    texto_mensaje += "\nINGRESE LA CANTIDAD DE PRODUCTOS";
-                    accion = "REGISTRAR_SALIDA_STOCK";
-                } else if (accion.equals("REGISTRAR_SALIDA_STOCK")) {
-                    cantidad_productos = Integer.parseInt(comando);
-                    serviceProductoSucursal.actualizarStock(v_sucursal_id, codigo, cantidad_productos);
-                    texto_mensaje += "\nREGISTRO EXITOSO";
+                } else {
+                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE VER";
+                    accion = "MOSTRAR";
+                }
+            } else {
+                if (accion.equals("MOSTRAR")) {
+                    texto_mensaje = serviceProducto.muestraProducto(comando);
+                    if (texto_mensaje == "") {
+                        texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. POR FAVOR INGRESE OTRO ID/CÓDIGO";
+                    } else {
+                        accion = "";
+                    }
+                } else {
+                    texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE VER";
+                    accion = "MOSTRAR";
+                }
+            }
+        } else if (comando.equals("5. LISTAR")) {
+            if (seccion == "EMPLEADOS") {
+                texto_mensaje = serviceEmpleado.listaEmpleados();
+            } else {
+                texto_mensaje = serviceProducto.listaProductos();
+            }
+        } else if (comando.equals("6. PRODUCTOS SUCURSAL")) {
+            texto_mensaje = serviceProductoSucursal.listaProductoSucursal();
+        } else if (comando.equals("7. REGISTRAR SALIDA") || accion.equals("REGISTRAR_SALIDA") || accion.equals("REGISTRAR_SALIDA_PRODUCTO") || accion.equals("REGISTRAR_SALIDA_STOCK")) {
+            if (accion.equals("REGISTRAR_SALIDA")) {
+                v_sucursal_id = serviceSucursal.getIdSucursalByName(comando);
+                texto_mensaje = serviceProductoSucursal.listaProductosPorSucursal(v_sucursal_id);
+                if (texto_mensaje == "") {
+                    texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO EN ESTA SUCURSAL INTENTE CON OTRA";
+                    keyboard = keyBoardsucursales(serviceSucursal.listar());
+                    accion = "REGISTRAR_SALIDA";
+                } else {
+                    texto_mensaje += "\n======================================";
+                    texto_mensaje += "\nINGRESE EL ID/CÓDIGO DEL PRODUCTO";
+                    accion = "REGISTRAR_SALIDA_PRODUCTO";
+                }
+            } else if (accion.equals("REGISTRAR_SALIDA_PRODUCTO")) {
+                codigo = comando;
+                texto_mensaje += "\nINGRESE LA CANTIDAD DE PRODUCTOS";
+                accion = "REGISTRAR_SALIDA_STOCK";
+            } else if (accion.equals("REGISTRAR_SALIDA_STOCK")) {
+                cantidad_productos = Integer.parseInt(comando);
+                serviceProductoSucursal.actualizarStock(v_sucursal_id, codigo, cantidad_productos);
+                texto_mensaje += "\nREGISTRO EXITOSO";
 
+                seccion = "INICIO";
+                keyboard = inicio();
+                kb.setKeyboard(keyboard);
+                mensaje.setReplyMarkup(kb);
+                limpiar();
+                seccion = "";
+                accion = "";
+                campo = "";
+                cantidad_productos = 0;
+                codigo = "";
+                v_sucursal_id = 0;
+            } else {
+                texto_mensaje = "SELECCIONE LA SUCURSAL DONDE SE REGISTRARA LA SALIDA";
+                if (serviceSucursal.listar().size() > 0) {
+                    // OBTENER EL KEYBOARD DE SUCURSALES
+                    keyboard = keyBoardsucursales(serviceSucursal.listar());
+                    accion = "REGISTRAR_SALIDA";
+                } else {
+                    // SI NO TIENE ELEMENTOS MOSTRAR ERROR
                     seccion = "INICIO";
                     keyboard = inicio();
                     kb.setKeyboard(keyboard);
+                    texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
                     mensaje.setReplyMarkup(kb);
                     limpiar();
-                    seccion = "";
                     accion = "";
-                    campo = "";
-                    cantidad_productos = 0;
-                    codigo = "";
-                    v_sucursal_id = 0;
-                } else {
-                    texto_mensaje = "SELECCIONE LA SUCURSAL DONDE SE REGISTRARA LA SALIDA";
-                    if (serviceSucursal.listar().size() > 0) {
-                        // OBTENER EL KEYBOARD DE SUCURSALES
-                        keyboard = keyBoardsucursales(serviceSucursal.listar());
-                        accion = "REGISTRAR_SALIDA";
-                    } else {
-                        // SI NO TIENE ELEMENTOS MOSTRAR ERROR
-                        seccion = "INICIO";
-                        keyboard = inicio();
-                        kb.setKeyboard(keyboard);
-                        texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
-                        mensaje.setReplyMarkup(kb);
-                        limpiar();
-                        accion = "";
-                    }
                 }
-                kb.setKeyboard(keyboard);
-                mensaje.setReplyMarkup(kb);
-            } else if (accion.equals("ID")) {
-                if (!comando.equals("2. MODIFICAR")) {
-                    id = Integer.parseInt(comando);
-                    texto_mensaje = serviceEmpleado.muestraEmpleado(id);
-                    if (texto_mensaje != "") {
-                        texto_mensaje += "\n=======================================";
-                        texto_mensaje += "\nSELECCIONE EL DATO QUE DESEA MODIFICAR";
-                        texto_mensaje += "\n=======================================";
-                        keyboard = datosEmpleados();
-                        kb.setKeyboard(keyboard);
-                        mensaje.setReplyMarkup(kb);
-                        accion = "MODIFICAR";
-                    } else {
-                        texto_mensaje += "\nNO SE ENCONTRO NINGUN EMPLEADO CON ESE ID. POR FAVOR INTENTE CON OTRO ID";
-                    }
+            }
+            kb.setKeyboard(keyboard);
+            mensaje.setReplyMarkup(kb);
+        } else if (accion.equals("ID")) {
+            if (!comando.equals("2. MODIFICAR")) {
+                id = Integer.parseInt(comando);
+                texto_mensaje = serviceEmpleado.muestraEmpleado(id);
+                if (texto_mensaje != "") {
+                    texto_mensaje += "\n=======================================";
+                    texto_mensaje += "\nSELECCIONE EL DATO QUE DESEA MODIFICAR";
+                    texto_mensaje += "\n=======================================";
+                    keyboard = datosEmpleados();
+                    kb.setKeyboard(keyboard);
+                    mensaje.setReplyMarkup(kb);
+                    accion = "MODIFICAR";
                 } else {
-                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
+                    texto_mensaje += "\nNO SE ENCONTRO NINGUN EMPLEADO CON ESE ID. POR FAVOR INTENTE CON OTRO ID";
                 }
-            } else if (comando.equals("/start")) {
-                texto_mensaje = "BIENVENIDO " + update.getMessage().getFrom().getFirstName().toUpperCase();
+            } else {
+                texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
             }
+        } else if (comando.equals("/start")) {
+            texto_mensaje = "BIENVENIDO " + update.getMessage().getFrom().getFirstName().toUpperCase();
         }
-            mensaje.setText(texto_mensaje);
-            // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
-            mensaje.setChatId(update.getMessage().getChatId());
-            // EJECUTAR EL MENSAJE
-            try {
-                execute(mensaje);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-            System.out.println("FIN");
+
+        mensaje.setText(texto_mensaje);
+        // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
+        mensaje.setChatId(update.getMessage().getChatId());
+        // EJECUTAR EL MENSAJE
+        try {
+            execute(mensaje);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
+        System.out.println("FIN");
     }
-}
 
-            mensaje.setText(texto_mensaje);
-            // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
-            mensaje.setChatId(update.getMessage().getChatId());
-            // EJECUTAR EL MENSAJE
-            try {
-                execute(mensaje);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-            System.out.println("FIN");
-        }
-}
-        public void limpiar ()
-        {
-            codigo = "";
-            codigo_modificar = "";
-            nombre = "";
-            direccion = "";
-            celular = "";
-            tipo = "";
-            descripcion = "";
-            id = 0;
-            stock = "";
-            sucursal = "";
-        }
-        /**************
-         * FIN SECCIÓN
-         * *************/
->>>>>>> 708089eafabd0f4e2a61eb97935f0cb461630638
 
-        public List<KeyboardRow> inicio ()
-        {
-            List<KeyboardRow> keyboard = new ArrayList();
-            KeyboardRow row = new KeyboardRow();
-            row.add("1. EMPLEADOS");//Opcion1
-            // AGREGAR LOS DATOS A LA LISTA
-            keyboard.add(row);
-            row = new KeyboardRow();
-            row.add("2. PRODUCTOS");//Opcion2
-            keyboard.add(row);
-            return keyboard;
-        }
+    public void limpiar()
+    {
+        codigo = "";
+        codigo_modificar = "";
+        nombre = "";
+        direccion = "";
+        celular = "";
+        tipo = "";
+        descripcion = "";
+        id = 0;
+        stock = "";
+        sucursal = "";
+    }
+
+    /**************
+     * FIN SECCIÓN
+     * *************/
+
+    public List<KeyboardRow> inicio()
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        row.add("1. EMPLEADOS");//Opcion1
+        // AGREGAR LOS DATOS A LA LISTA
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("2. PRODUCTOS");//Opcion2
+        keyboard.add(row);
+        return keyboard;
+    }
 
    /* public List<KeyboardRow> empleados()
     {
@@ -681,112 +655,120 @@ public class MainBot extends  TelegramLongPollingBot {
 
     }*/
 
-        public List<KeyboardRow> keyBoardsucursales (List < Sucursales > sucursales)
-        {
-            List<KeyboardRow> keyboard = new ArrayList();
-            KeyboardRow row = new KeyboardRow();
-            try {
-                for (Sucursales sucursal : sucursales) {
-                    row = new KeyboardRow();
-                    row.add(sucursal.getNombre());//sucursal
-                    keyboard.add(row);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return keyboard;
-        }
-
-        public List<KeyboardRow> opcionesGC ()
-        {
-            List<KeyboardRow> keyboard = new ArrayList();
-            KeyboardRow row = new KeyboardRow();
-            row.add("GUARDAR");//opcion1
-            keyboard.add(row);
-            row = new KeyboardRow();
-            row.add("CANCELAR");//opcion1
-            keyboard.add(row);
-            return keyboard;
-        }
-
-        public List<KeyboardRow> datosEmpleados ()
-        {
-            List<KeyboardRow> keyboard = new ArrayList();
-            KeyboardRow row = new KeyboardRow();
-            System.out.println(nombre);
-            System.out.println(direccion);
-            System.out.println(celular);
-            System.out.println(sucursal);
-
-            if (nombre == "") {
-                row.add("1. NOMBRE");//opcion1
-                keyboard.add(row);
-            }
-            if (direccion == "") {
+    public List<KeyboardRow> keyBoardsucursales(List<Sucursales> sucursales)
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        try{
+            for(Sucursales sucursal : sucursales)
+            {
                 row = new KeyboardRow();
-                row.add("2. DIRECCIÓN");//Opcion2
+                row.add(sucursal.getNombre());//sucursal
                 keyboard.add(row);
             }
-            if (celular == "") {
-                row = new KeyboardRow();
-                row.add("3. CELULAR");//Opcion3
-                keyboard.add(row);
-            }
-            if (sucursal == "") {
-                row = new KeyboardRow();
-                row.add("4. SUCURSAL");//Opcion3
-                keyboard.add(row);
-            }
-            return keyboard;
         }
-
-        public List<KeyboardRow> datosProductos ()
+        catch(Exception e)
         {
-            List<KeyboardRow> keyboard = new ArrayList();
-            KeyboardRow row = new KeyboardRow();
-            if (codigo == "") {
-                row.add("1. CÓDIGO");//opcion1
-                keyboard.add(row);
-            }
-            if (nombre == "") {
-                row = new KeyboardRow();
-                row.add("2. NOMBRE");//Opcion2
-                keyboard.add(row);
-            }
-            if (descripcion == "") {
-                row = new KeyboardRow();
-                row.add("3. DESCRIPCIÓN");//Opcion3
-                keyboard.add(row);
-            }
-            return keyboard;
+            e.printStackTrace();
         }
-
-        public List<KeyboardRow> acciones ()
-        {
-            List<KeyboardRow> keyboard = new ArrayList();
-            KeyboardRow row = new KeyboardRow();
-            // AGREGAR LOS DATOS A LA LISTA
-            row.add("1. REGISTRAR");//opcion1
-            keyboard.add(row);
-            row = new KeyboardRow();
-            row.add("2. MODIFICAR");//Opcion2
-            keyboard.add(row);
-            row = new KeyboardRow();
-            row.add("3. ELIMINAR");//Opcion3
-            keyboard.add(row);
-            row = new KeyboardRow();
-            row.add("4. MOSTRAR");//Opcion4
-            keyboard.add(row);
-            row = new KeyboardRow();
-            row.add("5. LISTAR");//Opcion5
-            keyboard.add(row);
-            return keyboard;
-        }
-
-        /***********************
-         * FUNCIONES PRODUCTOS
-         * **********************/
-
+        return keyboard;
     }
-}
 
+    public List<KeyboardRow> opcionesGC()
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        row.add("GUARDAR");//opcion1
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("CANCELAR");//opcion1
+        keyboard.add(row);
+        return keyboard;
+    }
+
+    public List<KeyboardRow> datosEmpleados()
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        System.out.println(nombre);
+        System.out.println(direccion);
+        System.out.println(celular);
+        System.out.println(sucursal);
+
+        if(nombre == "")
+        {
+            row.add("1. NOMBRE");//opcion1
+            keyboard.add(row);
+        }
+        if(direccion == "")
+        {
+            row = new KeyboardRow();
+            row.add("2. DIRECCIÓN");//Opcion2
+            keyboard.add(row);
+        }
+        if(celular == "")
+        {
+            row = new KeyboardRow();
+            row.add("3. CELULAR");//Opcion3
+            keyboard.add(row);
+        }
+        if(sucursal == "")
+        {
+            row = new KeyboardRow();
+            row.add("4. SUCURSAL");//Opcion3
+            keyboard.add(row);
+        }
+        return keyboard;
+    }
+
+    public List<KeyboardRow> datosProductos()
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        if(codigo == "")
+        {
+            row.add("1. CÓDIGO");//opcion1
+            keyboard.add(row);
+        }
+        if(nombre == "")
+        {
+            row = new KeyboardRow();
+            row.add("2. NOMBRE");//Opcion2
+            keyboard.add(row);
+        }
+        if(descripcion == "")
+        {
+            row = new KeyboardRow();
+            row.add("3. DESCRIPCIÓN");//Opcion3
+            keyboard.add(row);
+        }
+        return keyboard;
+    }
+
+    public List<KeyboardRow> acciones()
+    {
+        List<KeyboardRow> keyboard = new ArrayList();
+        KeyboardRow row = new KeyboardRow();
+        // AGREGAR LOS DATOS A LA LISTA
+        row.add("1. REGISTRAR");//opcion1
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("2. MODIFICAR");//Opcion2
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("3. ELIMINAR");//Opcion3
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("4. MOSTRAR");//Opcion4
+        keyboard.add(row);
+        row = new KeyboardRow();
+        row.add("5. LISTAR");//Opcion5
+        keyboard.add(row);
+        return keyboard;
+    }
+
+    /***********************
+     * FUNCIONES PRODUCTOS
+     * **********************/
+
+}
