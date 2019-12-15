@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainBot extends  TelegramLongPollingBot{
+public class MainBot extends  TelegramLongPollingBot {
 
-    public int id= 0;
+    public int id = 0;
     public String seccion = "";
     public String accion = "";
     public String campo = "";
@@ -46,8 +46,7 @@ public class MainBot extends  TelegramLongPollingBot{
     private IProductoSucursalService serviceProductoSucursal;
 
     @Autowired
-    public MainBot(EmpleadoServiceImpl sEmpleado, SucursalServiceImpl sSucursal, ProductoServiceImpl sProducto, ProductoSucursalService sProductoSUcursal)
-    {
+    public MainBot(EmpleadoServiceImpl sEmpleado, SucursalServiceImpl sSucursal, ProductoServiceImpl sProducto, ProductoSucursalService sProductoSUcursal) {
         this.serviceEmpleado = sEmpleado;
         this.serviceSucursal = sSucursal;
         this.serviceProducto = sProducto;
@@ -66,6 +65,7 @@ public class MainBot extends  TelegramLongPollingBot{
         // OBTENER EL NOMBRE DEL USUARIO QUE ENVIO EL MENSAJE
         // String nombre_usuario = update.getMessage().getFrom().getFirstName();
     }
+
     @Override
     public String getBotUsername() {
         return "Iventario_Bot";
@@ -78,13 +78,13 @@ public class MainBot extends  TelegramLongPollingBot{
    /*public String getBotToken() {
         return "1011018114:AAF75PTT1qglCByMO0RpdeVmYQuunu95cbw";
     }*/
+
     /****************************
      * SECCIÓN MENÚ DE MENSAJES
      * ***************************/
 
     // Menu inicial
-    public void menuInicial(String comando,Update update)
-    {
+    public void menuInicial(String comando, Update update) {
         // RESPONDER AL USUARIO
         SendMessage mensaje = new SendMessage();
         // ARMAR EL MENSAJE
@@ -95,8 +95,7 @@ public class MainBot extends  TelegramLongPollingBot{
         List<KeyboardRow> keyboard = new ArrayList();
 
         // RESPUESTA
-        if(comando.toLowerCase().equals("/almacen"))
-        {
+        if (comando.toLowerCase().equals("/almacen")) {
             seccion = "INICIO";
             accion = "";
             campo = "";
@@ -107,8 +106,7 @@ public class MainBot extends  TelegramLongPollingBot{
             kb.setKeyboard(keyboard);
             texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
             mensaje.setReplyMarkup(kb);
-        }
-        else if(comando.equals("1. EMPLEADOS") || comando.toLowerCase().equals("/empleados")) {
+        } else if (comando.equals("1. EMPLEADOS") || comando.toLowerCase().equals("/empleados")) {
             seccion = "EMPLEADOS";
             accion = "";
             campo = "";
@@ -118,8 +116,7 @@ public class MainBot extends  TelegramLongPollingBot{
             kb.setKeyboard(keyboard);
             texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
             mensaje.setReplyMarkup(kb);
-        }
-        else if(comando.equals("2. PRODUCTOS") || comando.toLowerCase().equals("/productos")){
+        } else if (comando.equals("2. PRODUCTOS") || comando.toLowerCase().equals("/productos")) {
             seccion = "PRODUCTOS";
             accion = "";
             campo = "";
@@ -135,55 +132,43 @@ public class MainBot extends  TelegramLongPollingBot{
             kb.setKeyboard(keyboard);
             texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
             mensaje.setReplyMarkup(kb);
-        }
-        else if(comando.equals("1. REGISTRAR") || accion.equals("REGISTRAR"))
-        {
-        // AGREGAR LOS DATOS A LA LISTA
-            if(seccion.equals("EMPLEADOS")) {
+        } else if (comando.equals("1. REGISTRAR") || accion.equals("REGISTRAR")) {
+            // AGREGAR LOS DATOS A LA LISTA
+            if (seccion.equals("EMPLEADOS")) {
                 /*******************************
                  *             EMPLEADOS
                  * ****************************/
-                if(accion.equals(""))
-                {
+                if (accion.equals("")) {
                     texto_mensaje = "DATOS QUE SE NECESITAN:\n1. NOMBRE*\n2. DIRECCIÓN*\n3. CELULAR*\n4. SUCURSAL*\n===============================\nDEBE IR ELIGIENDO LOS CAMPOS(LOS CAMPOS CON * SON OBLIGATORIOS)";
                 }
                 // ASIGNAR LA ACCION ACTUAL
                 accion = "REGISTRAR";
 
                 // ASIGNAR CAMPOS
-                if(!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL")  && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
-                {
-                    if(campo.equals("nombre"))
-                    {
+                if (!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
+                    if (campo.equals("nombre")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(direccion != "" && celular != "" && sucursal != "")
-                        {
+                        if (direccion != "" && celular != "" && sucursal != "") {
                             texto_mensaje = "CORRECTO!";
                         }
 
                         nombre = comando;
-                    }
-                    else if(campo.equals("direccion"))
-                    {
+                    } else if (campo.equals("direccion")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(nombre != "" && celular != "" && sucursal != "") {
+                        if (nombre != "" && celular != "" && sucursal != "") {
                             texto_mensaje = "CORRECTO!";
                         }
                         direccion = comando;
-                    }
-                    else if(campo.equals("celular"))
-                    {
+                    } else if (campo.equals("celular")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(nombre != "" && direccion != "" && sucursal != ""){
+                        if (nombre != "" && direccion != "" && sucursal != "") {
                             texto_mensaje = "CORRECTO!";
                         }
 
                         celular = comando;
-                    }
-                    else if(campo.equals("sucursal"))
-                    {
+                    } else if (campo.equals("sucursal")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(nombre != "" && direccion != "" && celular != ""){
+                        if (nombre != "" && direccion != "" && celular != "") {
                             texto_mensaje = "CORRECTO!";
                         }
 
@@ -196,32 +181,23 @@ public class MainBot extends  TelegramLongPollingBot{
                 keyboard = datosEmpleados();
 
                 // PEDIR DATOS
-                if(comando.equals("1. NOMBRE"))
-                {
+                if (comando.equals("1. NOMBRE")) {
                     texto_mensaje = "INGRESE EL NOMBRE DEL EMPLEADO:";
                     campo = "nombre";
-                }
-                else if(comando.equals("2. DIRECCIÓN"))
-                {
+                } else if (comando.equals("2. DIRECCIÓN")) {
                     texto_mensaje = "INGRESE LA DIRECCIÓN DEL EMPLEADO:";
                     campo = "direccion";
-                }
-                else if(comando.equals("3. CELULAR"))
-                {
+                } else if (comando.equals("3. CELULAR")) {
                     texto_mensaje = "INGRESE EL CELULAR DEL EMPLEADO:";
                     campo = "celular";
-                }
-                else if(comando.equals("4. SUCURSAL"))
-                {
+                } else if (comando.equals("4. SUCURSAL")) {
                     texto_mensaje = "SELECCIONE LA SUCURSAL:";
                     campo = "sucursal";
-                    if(serviceSucursal.listar().size() > 0)
-                    {
+                    if (serviceSucursal.listar().size() > 0) {
                         // OBTENER EL KEYBOARD DE SUCURSALES
                         keyboard = keyBoardsucursales(serviceSucursal.listar());
                     }
-                    if(keyboard.size() == 0)
-                    {
+                    if (keyboard.size() == 0) {
                         // SI NO TIENE ELEMENTOS MOSTRAR ERROR
                         seccion = "INICIO";
                         keyboard = inicio();
@@ -233,10 +209,8 @@ public class MainBot extends  TelegramLongPollingBot{
                 }
                 //FIN PEDIR DATOS
 
-                if(nombre != "" && direccion != "" && celular != "" && sucursal != "")
-                {
-                    if(comando.equals("CANCELAR"))
-                    {
+                if (nombre != "" && direccion != "" && celular != "" && sucursal != "") {
+                    if (comando.equals("CANCELAR")) {
                         seccion = "INICIO";
                         keyboard = inicio();
                         kb.setKeyboard(keyboard);
@@ -244,10 +218,8 @@ public class MainBot extends  TelegramLongPollingBot{
                         mensaje.setReplyMarkup(kb);
                         limpiar();
                         System.out.println("CANCELAR REGISTRO");
-                    }
-                    else if(comando.equals("GUARDAR"))
-                    {
-                        int resp=0;
+                    } else if (comando.equals("GUARDAR")) {
+                        int resp = 0;
                         //OBTENER LA FECHA
                         Date fecha = new Date();
                         DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -255,13 +227,11 @@ public class MainBot extends  TelegramLongPollingBot{
                         //OBTENER EL ID DE LA SUCURSAL
                         int sucursal_id = serviceSucursal.getIdSucursalByName(sucursal);
                         Empleados empleadoNuevo = null;
-                        empleadoNuevo = serviceEmpleado.registrarEmpleado(sucursal_id,nombre,direccion,celular,"EMPLEADO",fecha_actual);
-                        if(empleadoNuevo != null)
-                        {
+                        empleadoNuevo = serviceEmpleado.registrarEmpleado(sucursal_id, nombre, direccion, celular, "EMPLEADO", fecha_actual);
+                        if (empleadoNuevo != null) {
                             texto_mensaje = "REGISTRO ÉXITOSO";
                             System.out.println("GUARDO");
-                        }
-                        else{
+                        } else {
                             texto_mensaje = "ALGO SALIÓ MAL. INTENTE NUEVAMENTE POR FAVOR";
                         }
 
@@ -273,51 +243,40 @@ public class MainBot extends  TelegramLongPollingBot{
                         seccion = "";
                         accion = "";
                         campo = "";
-                    }
-                    else{
-                        texto_mensaje = "DATOS\n=======\nNOMBRE: "+nombre+"\nDIRECCIÓN: "+direccion+"\nCELULAR: "+celular+"\nSUCURSAL: "+sucursal;
+                    } else {
+                        texto_mensaje = "DATOS\n=======\nNOMBRE: " + nombre + "\nDIRECCIÓN: " + direccion + "\nCELULAR: " + celular + "\nSUCURSAL: " + sucursal;
                         //OPCIONES GUARDAR Y CANCELAR
                         keyboard = opcionesGC();
                     }
                 }
-            }
-            else if(seccion.equals("PRODUCTOS"))
-            {
+            } else if (seccion.equals("PRODUCTOS")) {
 
-                    /*******************************
-                     *             PRODUCTOS
-                     * ****************************/
-                if(accion.equals(""))
-                {
+                /*******************************
+                 *             PRODUCTOS
+                 * ****************************/
+                if (accion.equals("")) {
                     texto_mensaje = "DATOS QUE SE NECESITAN:\n1. CÓDIGO*\n2. NOMBRE*\n3. DESCRIPCIÓN\n===============================\nDEBE IR ELIGIENDO LOS CAMPOS(LOS CAMPOS CON * SON OBLIGATORIOS)";
                 }
                 // ASIGNAR LA ACCION ACTUAL
                 accion = "REGISTRAR";
 
                 // ASIGNAR CAMPOS
-                if(!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
-                {
-                    if(campo.equals("codigo"))
-                    {
+                if (!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
+                    if (campo.equals("codigo")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(nombre != "" && descripcion != "")
-                        {
+                        if (nombre != "" && descripcion != "") {
                             texto_mensaje = "CORRECTO!";
                         }
                         codigo = comando;
-                    }
-                    else if(campo.equals("nombre"))
-                    {
+                    } else if (campo.equals("nombre")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(codigo != "" && descripcion != "") {
+                        if (codigo != "" && descripcion != "") {
                             texto_mensaje = "CORRECTO!";
                         }
                         nombre = comando;
-                    }
-                    else if(campo.equals("descripcion"))
-                    {
+                    } else if (campo.equals("descripcion")) {
                         texto_mensaje = "CORRECTO!\nSELECCIONE OTRO CAMPO POR FAVOR";
-                        if(codigo != "" && nombre != ""){
+                        if (codigo != "" && nombre != "") {
                             texto_mensaje = "CORRECTO!";
                         }
                         descripcion = comando;
@@ -325,64 +284,54 @@ public class MainBot extends  TelegramLongPollingBot{
                 }
                 //FIN ASIGANAR CAMPOS
 
-                    // VALIDAR QUE OPCIONES SE MOSTRARAN EN EL KEYBOARD
-                    keyboard = datosProductos();
+                // VALIDAR QUE OPCIONES SE MOSTRARAN EN EL KEYBOARD
+                keyboard = datosProductos();
 
-                    // PEDIR DATOS
-                    if(comando.equals("1. CÓDIGO"))
-                    {
-                        texto_mensaje = "INGRESE EL CÓDIGO DEL PRODUCTO:";
-                        campo = "codigo";
-                    }
-                    else if(comando.equals("2. NOMBRE"))
-                    {
-                        texto_mensaje = "INGRESE EL NOMBRE DEL PRODUCTO:";
-                        campo = "nombre";
-                    }
-                    // FIN PEDIR DATOS OBLIGATORIOS
+                // PEDIR DATOS
+                if (comando.equals("1. CÓDIGO")) {
+                    texto_mensaje = "INGRESE EL CÓDIGO DEL PRODUCTO:";
+                    campo = "codigo";
+                } else if (comando.equals("2. NOMBRE")) {
+                    texto_mensaje = "INGRESE EL NOMBRE DEL PRODUCTO:";
+                    campo = "nombre";
+                }
+                // FIN PEDIR DATOS OBLIGATORIOS
 
-                    if(codigo != "" && nombre != "")
-                    {
-                        if(comando.equals("CANCELAR"))
-                        {
-                            seccion = "INICIO";
-                            keyboard = inicio();
-                            kb.setKeyboard(keyboard);
-                            texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
-                            mensaje.setReplyMarkup(kb);
-                            limpiar();
-                            System.out.println("CANCELAR REGISTRO");
-                        }
-                        else if(comando.equals("GUARDAR"))
-                        {
-                            serviceProducto.registrarProducto(codigo,nombre,descripcion);
-                            texto_mensaje = "REGISTRO ÉXITOSO";
-                            System.out.println("GUARDO");
-                            seccion = "INICIO";
-                            keyboard = inicio();
-                            kb.setKeyboard(keyboard);
-                            mensaje.setReplyMarkup(kb);
-                            limpiar();
-                            seccion = "";
-                            accion = "";
-                            campo = "";
-                        }
-                        else{
-                            texto_mensaje = "DATOS\n=======\nCÓDIGO: "+codigo+"\nNOMBRE: "+nombre+"\nDESCRIPCIÓN: "+descripcion;
-                            //OPCIONES GUARDAR Y CANCELAR
-                            keyboard = opcionesGC();
-                            if(descripcion == "")
-                            {
-                                KeyboardRow row = new KeyboardRow();
-                                row.add("3. DESCRIPCIÓN");
-                                keyboard.add(row);
-                            }
+                if (codigo != "" && nombre != "") {
+                    if (comando.equals("CANCELAR")) {
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        texto_mensaje = "SELECCIONE UNA DE LAS OPCIONES.";
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
+                        System.out.println("CANCELAR REGISTRO");
+                    } else if (comando.equals("GUARDAR")) {
+                        serviceProducto.registrarProducto(codigo, nombre, descripcion);
+                        texto_mensaje = "REGISTRO ÉXITOSO";
+                        System.out.println("GUARDO");
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
+                        seccion = "";
+                        accion = "";
+                        campo = "";
+                    } else {
+                        texto_mensaje = "DATOS\n=======\nCÓDIGO: " + codigo + "\nNOMBRE: " + nombre + "\nDESCRIPCIÓN: " + descripcion;
+                        //OPCIONES GUARDAR Y CANCELAR
+                        keyboard = opcionesGC();
+                        if (descripcion == "") {
+                            KeyboardRow row = new KeyboardRow();
+                            row.add("3. DESCRIPCIÓN");
+                            keyboard.add(row);
                         }
                     }
+                }
 
                 // DATO OPCIONAL
-                if(comando.equals("3. DESCRIPCIÓN"))
-                {
+                if (comando.equals("3. DESCRIPCIÓN")) {
                     texto_mensaje = "INGRESE LA DESCRIPCIÓN DEL PRODUCTO:";
                     campo = "descripcion";
                 }
@@ -395,52 +344,39 @@ public class MainBot extends  TelegramLongPollingBot{
             // AGREGAR LOS BOTONES AL KEYBOARD
             mensaje.setReplyMarkup(kb);
             accion = "REGISTRAR";
-        }
-        else if(comando.equals("2. MODIFICAR") || accion.equals("MODIFICAR") || accion.equals("MODIFICARP"))
-        {
-            if(accion == "")
-            {
+        } else if (comando.equals("2. MODIFICAR") || accion.equals("MODIFICAR") || accion.equals("MODIFICARP")) {
+            if (accion == "") {
                 accion = "MODIFICAR";
             }
 
-            if(seccion.equals("EMPLEADOS"))
-            {
-                    /**********************
-                     *       EMPLEADOS
-                     * *******************/
-                    // ASIGNAR LA ACCION A ID PARA SOLICITAR QUE SE INGRESE
-                if(id == 0)
-                {
+            if (seccion.equals("EMPLEADOS")) {
+                /**********************
+                 *       EMPLEADOS
+                 * *******************/
+                // ASIGNAR LA ACCION A ID PARA SOLICITAR QUE SE INGRESE
+                if (id == 0) {
                     texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
                     accion = "ID";
                 }
 
                 // ASIGNAR CAMPOS
-                if(!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL")  && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
-                {
+                if (!comando.equals("1. NOMBRE") && !comando.equals("2. DIRECCIÓN") && !comando.equals("3. CELULAR") && !comando.equals("4. SUCURSAL") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
                     int respuesta = 0;
-                    if(campo.equals("nombre"))
-                    {
-                        serviceEmpleado.modificarEmpleado("nombre",id,comando);
+                    if (campo.equals("nombre")) {
+                        serviceEmpleado.modificarEmpleado("nombre", id, comando);
                         texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                         nombre = "";
-                    }
-                    else if(campo.equals("direccion"))
-                    {
-                        serviceEmpleado.modificarEmpleado("direccion",id,comando);
+                    } else if (campo.equals("direccion")) {
+                        serviceEmpleado.modificarEmpleado("direccion", id, comando);
                         texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                         direccion = "";
-                    }
-                    else if(campo.equals("celular"))
-                    {
-                        serviceEmpleado.modificarEmpleado("celular",id,comando);
+                    } else if (campo.equals("celular")) {
+                        serviceEmpleado.modificarEmpleado("celular", id, comando);
                         texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                         celular = "";
-                    }
-                    else if(campo.equals("sucursal"))
-                    {
-                        String sucursal_id = serviceSucursal.getIdSucursalByName(comando)+"";
-                        serviceEmpleado.modificarEmpleado("sucursal_id",id,sucursal_id);
+                    } else if (campo.equals("sucursal")) {
+                        String sucursal_id = serviceSucursal.getIdSucursalByName(comando) + "";
+                        serviceEmpleado.modificarEmpleado("sucursal_id", id, sucursal_id);
                         texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
                         sucursal = "";
                     }
@@ -451,34 +387,25 @@ public class MainBot extends  TelegramLongPollingBot{
                 //FIN ASIGANAR CAMPOS
 
                 // PEDIR DATOS
-                if(comando.equals("1. NOMBRE"))
-                {
+                if (comando.equals("1. NOMBRE")) {
                     texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL EMPLEADO:";
                     campo = "nombre";
-                }
-                else if(comando.equals("2. DIRECCIÓN"))
-                {
+                } else if (comando.equals("2. DIRECCIÓN")) {
                     texto_mensaje = "INGRESE LA NUEVA DIRECCIÓN DEL EMPLEADO:";
                     campo = "direccion";
-                }
-                else if(comando.equals("3. CELULAR"))
-                {
+                } else if (comando.equals("3. CELULAR")) {
                     texto_mensaje = "INGRESE EL NUEVO CELULAR DEL EMPLEADO:";
                     campo = "celular";
-                }
-                else if(comando.equals("4. SUCURSAL"))
-                {
+                } else if (comando.equals("4. SUCURSAL")) {
                     texto_mensaje = "SELECCIONE LA NUEVA SUCURSAL:";
                     campo = "sucursal";
-                    if(serviceSucursal.listar().size() > 0)
-                    {
+                    if (serviceSucursal.listar().size() > 0) {
                         // OBTENER EL KEYBOARD DE SUCURSALES
                         keyboard = keyBoardsucursales(serviceSucursal.listar());
                         kb.setKeyboard(keyboard);
                         mensaje.setReplyMarkup(kb);
                     }
-                    if(keyboard.size() == 0)
-                    {
+                    if (keyboard.size() == 0) {
                         // SI NO TIENE ELEMENTOS MOSTRAR ERROR
                         seccion = "INICIO";
                         keyboard = inicio();
@@ -490,294 +417,232 @@ public class MainBot extends  TelegramLongPollingBot{
                 }
                 //FIN PEDIR DATOS
 
-                    else if(seccion.equals("PRODUCTOS"))
-                    {
-                        /**********************
-                         *       PRODUCTOS
-                         * *******************/
-                        if(accion.equals("MODIFICARP"))
-                        {
-                            // ASIGNAR CAMPOS
-                            if(!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR")  && !comando.equals("CANCELAR"))
-                            {
-                                System.out.println(campo + " | CAMPO");
+                else if (seccion.equals("PRODUCTOS")) {
+                    /**********************
+                     *       PRODUCTOS
+                     * *******************/
+                    if (accion.equals("MODIFICARP")) {
+                        // ASIGNAR CAMPOS
+                        if (!comando.equals("1. CÓDIGO") && !comando.equals("2. NOMBRE") && !comando.equals("3. DESCRIPCIÓN") && !comando.equals("GUARDAR") && !comando.equals("CANCELAR")) {
+                            System.out.println(campo + " | CAMPO");
 
-                                if(codigo_modificar == "")
-                                {
-                                    codigo_modificar = comando;
-                                    System.out.println(codigo_modificar);
-                                    texto_mensaje = serviceProducto.muestraProducto(codigo_modificar);
-                                    if(texto_mensaje != "")
-                                    {
-                                        texto_mensaje += "\n=================================";
-                                        texto_mensaje += "\nSELECIONE UN CAMPO PARA MODIFICAR";
-                                    }
-                                    else{
-                                        codigo_modificar = "";
-                                        texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. INTENTE NUEVAMENTE.";
-                                        accion = "MODIFICAR";
-                                    }
+                            if (codigo_modificar == "") {
+                                codigo_modificar = comando;
+                                System.out.println(codigo_modificar);
+                                texto_mensaje = serviceProducto.muestraProducto(codigo_modificar);
+                                if (texto_mensaje != "") {
+                                    texto_mensaje += "\n=================================";
+                                    texto_mensaje += "\nSELECIONE UN CAMPO PARA MODIFICAR";
+                                } else {
+                                    codigo_modificar = "";
+                                    texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. INTENTE NUEVAMENTE.";
+                                    accion = "MODIFICAR";
                                 }
+                            }
 
-                                int respuesta = 0;
-                                if(campo.equals("codigo"))
-                                {
-                                    serviceProducto.modificarProducto("codigo",codigo_modificar,comando);
-                                    texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                                    codigo = "";
-                                }
-                                else if(campo.equals("nombre"))
-                                {
-                                    serviceProducto.modificarProducto("nombre",codigo_modificar,comando);
-                                    texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                                    nombre = "";
-                                }
-                                else if(campo.equals("descripcion"))
-                                {
-                                    serviceProducto.modificarProducto("descripcion",codigo_modificar,comando);
-                                    texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
-                                    descripcion = "";
-                                }
-                                keyboard = datosProductos();
-                                kb.setKeyboard(keyboard);
-                                mensaje.setReplyMarkup(kb);
+                            int respuesta = 0;
+                            if (campo.equals("codigo")) {
+                                serviceProducto.modificarProducto("codigo", codigo_modificar, comando);
+                                texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                                codigo = "";
+                            } else if (campo.equals("nombre")) {
+                                serviceProducto.modificarProducto("nombre", codigo_modificar, comando);
+                                texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                                nombre = "";
+                            } else if (campo.equals("descripcion")) {
+                                serviceProducto.modificarProducto("descripcion", codigo_modificar, comando);
+                                texto_mensaje = "DATO MODIFICADO CON ÉXITO!";
+                                descripcion = "";
                             }
-                            //FIN ASIGANAR CAMPOS
-                            // PEDIR DATOS
-                            if(comando.equals("1. CÓDIGO"))
-                            {
-                                texto_mensaje = "INGRESE EL NUEVO CÓDIGO DEL PRODUCTO:";
-                                campo = "codigo";
-                            }
-                            else if(comando.equals("2. NOMBRE"))
-                            {
-                                texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL PRODUCTO:";
-                                campo = "nombre";
-                            }
-                            else if(comando.equals("3. DESCRIPCIÓN"))
-                            {
-                                texto_mensaje = "INGRESE LA NUEVA DESCRIPCIÓN DEL PRODUCTO:";
-                                campo = "descripcion";
-                            }
-                            //FIN PEDIR DATOS
+                            keyboard = datosProductos();
+                            kb.setKeyboard(keyboard);
+                            mensaje.setReplyMarkup(kb);
                         }
-                        else{
-                            texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE MODIFICAR";
-                            accion = "MODIFICARP";
+                        //FIN ASIGANAR CAMPOS
+                        // PEDIR DATOS
+                        if (comando.equals("1. CÓDIGO")) {
+                            texto_mensaje = "INGRESE EL NUEVO CÓDIGO DEL PRODUCTO:";
+                            campo = "codigo";
+                        } else if (comando.equals("2. NOMBRE")) {
+                            texto_mensaje = "INGRESE EL NUEVO NOMBRE DEL PRODUCTO:";
+                            campo = "nombre";
+                        } else if (comando.equals("3. DESCRIPCIÓN")) {
+                            texto_mensaje = "INGRESE LA NUEVA DESCRIPCIÓN DEL PRODUCTO:";
+                            campo = "descripcion";
                         }
+                        //FIN PEDIR DATOS
+                    } else {
+                        texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE MODIFICAR";
+                        accion = "MODIFICARP";
                     }
                 }
-            else if(comando.equals("4. ELIMINAR") || accion.equals("ELIMINAR"))
-        {
-            if(seccion == "EMPLEADOS"){
-                if(accion.equals("ELIMINAR"))
-                {
-                    serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
-                    texto_mensaje = "EMPLEADO ELIMINADO CON ÉXITO!";
+            } else if (comando.equals("4. ELIMINAR") || accion.equals("ELIMINAR")) {
+                if (seccion == "EMPLEADOS") {
+                    if (accion.equals("ELIMINAR")) {
+                        serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
+                        texto_mensaje = "EMPLEADO ELIMINADO CON ÉXITO!";
+                    } else {
+                        texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE ELIMINAR";
+                        accion = "ELIMINAR";
+                    }
+                } else {
+                    if (accion.equals("ELIMINAR")) {
+                        serviceProducto.eliminaProducto(comando);
+                        texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
+                    } else {
+                        texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
+                        accion = "ELIMINAR";
+                    }
                 }
-                else{
-                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE ELIMINAR";
-                    accion = "ELIMINAR";
-                }
-            }
-            else{
-                if(accion.equals("ELIMINAR"))
-                {
-                    serviceProducto.eliminaProducto(comando);
-                    texto_mensaje = "PRODUCTO ELIMINADO CON ÉXITO!";
-                }
-                else{
-                    texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE ELIMINAR";
-                    accion = "ELIMINAR";
-                }
-            }
-        }
-        else if(comando.equals("5. MOSTRAR") || accion.equals("MOSTRAR"))
-            {
-                if(seccion == "EMPLEADOS"){
-                    if(accion.equals("MOSTRAR"))
-                    {
+            } else if (comando.equals("5. MOSTRAR") || accion.equals("MOSTRAR")) {
+                if (seccion == "EMPLEADOS") {
+                    if (accion.equals("MOSTRAR")) {
                         texto_mensaje = serviceEmpleado.muestraEmpleado(Integer.parseInt(comando));
-                        if(texto_mensaje == "")
-                        {
+                        if (texto_mensaje == "") {
                             texto_mensaje = "NO SE ENCONTRÓ NINGUN EMPLEADO CON ESE ID. POR FAVOR INGRESE OTRO ID";
-                        }
-                        else{
+                        } else {
                             accion = "";
                         }
-                    }
-                    else{
+                    } else {
                         texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE QUIERE VER";
                         accion = "MOSTRAR";
                     }
+                } else {
+                    if (accion.equals("MOSTRAR")) {
+                        texto_mensaje = serviceProducto.muestraProducto(comando);
+                        if (texto_mensaje == "") {
+                            texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. POR FAVOR INGRESE OTRO ID/CÓDIGO";
+                        } else {
+                            accion = "";
+                        }
+                    } else {
+                        texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE VER";
+                        accion = "MOSTRAR";
+                    }
                 }
-                else{
-                    if(accion.equals("MOSTRAR"))
-                    {
-                       texto_mensaje = serviceProducto.muestraProducto(comando);
-                       if(texto_mensaje == "")
-                    {
-                    texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO CON ESE ID/CÓDIGO. POR FAVOR INGRESE OTRO ID/CÓDIGO";
+            } else if (comando.equals("6. LISTAR")) {
+                if (seccion == "EMPLEADOS") {
+                    texto_mensaje = serviceEmpleado.listaEmpleados();
+                } else {
+                    texto_mensaje = serviceProducto.listaProductos();
                 }
-                else{
-                    accion = "";
-                }
-            }
-            else{
-                texto_mensaje = "INGRESE EL ID/CÓDIGO DEL PRODUCTO QUE QUIERE VER";
-                accion = "MOSTRAR";
-            }
-        }
-    }
-    else if(comando.equals("6. LISTAR"))
-    {
-        if(seccion == "EMPLEADOS"){
-            texto_mensaje = serviceEmpleado.listaEmpleados();
-        }
-        else{
-            texto_mensaje = serviceProducto.listaProductos();
-        }
-    }
-    else if(comando.equals("6. PRODUCTOS SUCURSAL"))
-    {
-        texto_mensaje = serviceProductoSucursal.listaProductoSucursal();
-    }
-    else if(comando.equals("7. REGISTRAR SALIDA") || accion.equals("REGISTRAR_SALIDA") || accion.equals("REGISTRAR_SALIDA_PRODUCTO") || accion.equals("REGISTRAR_SALIDA_STOCK"))
-        {
-            if(accion.equals("REGISTRAR_SALIDA"))
-            {
-                v_sucursal_id = serviceSucursal.getIdSucursalByName(comando);
-                texto_mensaje = serviceProductoSucursal.listaProductosPorSucursal(v_sucursal_id);
-                if(texto_mensaje == "")
-                {
-                    texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO EN ESTA SUCURSAL INTENTE CON OTRA";
-                    keyboard = keyBoardsucursales(serviceSucursal.listar());
-                    accion = "REGISTRAR_SALIDA";
-                }
-                else{
-                    texto_mensaje += "\n======================================";
-                    texto_mensaje += "\nINGRESE EL ID/CÓDIGO DEL PRODUCTO";
-                    accion = "REGISTRAR_SALIDA_PRODUCTO";
-                }
-            }
-            else if(accion.equals("REGISTRAR_SALIDA_PRODUCTO"))
-            {
-                codigo = comando;
-                texto_mensaje += "\nINGRESE LA CANTIDAD DE PRODUCTOS";
-                accion = "REGISTRAR_SALIDA_STOCK";
-            }
-            else if(accion.equals("REGISTRAR_SALIDA_STOCK"))
-            {
-                cantidad_productos = Integer.parseInt(comando);
-                serviceProductoSucursal.actualizarStock(v_sucursal_id, codigo, cantidad_productos);
-                texto_mensaje += "\nREGISTRO EXITOSO";
+            } else if (comando.equals("6. PRODUCTOS SUCURSAL")) {
+                texto_mensaje = serviceProductoSucursal.listaProductoSucursal();
+            } else if (comando.equals("7. REGISTRAR SALIDA") || accion.equals("REGISTRAR_SALIDA") || accion.equals("REGISTRAR_SALIDA_PRODUCTO") || accion.equals("REGISTRAR_SALIDA_STOCK")) {
+                if (accion.equals("REGISTRAR_SALIDA")) {
+                    v_sucursal_id = serviceSucursal.getIdSucursalByName(comando);
+                    texto_mensaje = serviceProductoSucursal.listaProductosPorSucursal(v_sucursal_id);
+                    if (texto_mensaje == "") {
+                        texto_mensaje = "NO SE ENCONTRÓ NINGUN PRODUCTO EN ESTA SUCURSAL INTENTE CON OTRA";
+                        keyboard = keyBoardsucursales(serviceSucursal.listar());
+                        accion = "REGISTRAR_SALIDA";
+                    } else {
+                        texto_mensaje += "\n======================================";
+                        texto_mensaje += "\nINGRESE EL ID/CÓDIGO DEL PRODUCTO";
+                        accion = "REGISTRAR_SALIDA_PRODUCTO";
+                    }
+                } else if (accion.equals("REGISTRAR_SALIDA_PRODUCTO")) {
+                    codigo = comando;
+                    texto_mensaje += "\nINGRESE LA CANTIDAD DE PRODUCTOS";
+                    accion = "REGISTRAR_SALIDA_STOCK";
+                } else if (accion.equals("REGISTRAR_SALIDA_STOCK")) {
+                    cantidad_productos = Integer.parseInt(comando);
+                    serviceProductoSucursal.actualizarStock(v_sucursal_id, codigo, cantidad_productos);
+                    texto_mensaje += "\nREGISTRO EXITOSO";
 
-                seccion = "INICIO";
-                keyboard = inicio();
-                kb.setKeyboard(keyboard);
-                mensaje.setReplyMarkup(kb);
-                limpiar();
-                seccion = "";
-                accion = "";
-                campo = "";
-                cantidad_productos =0;
-                codigo = "";
-                v_sucursal_id = 0;
-            }
-            else{
-                texto_mensaje = "SELECCIONE LA SUCURSAL DONDE SE REGISTRARA LA SALIDA";
-                if(serviceSucursal.listar().size() > 0)
-                {
-                    // OBTENER EL KEYBOARD DE SUCURSALES
-                    keyboard = keyBoardsucursales(serviceSucursal.listar());
-                    accion = "REGISTRAR_SALIDA";
-                }
-                else
-                {
-                    // SI NO TIENE ELEMENTOS MOSTRAR ERROR
                     seccion = "INICIO";
                     keyboard = inicio();
                     kb.setKeyboard(keyboard);
-                    texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
                     mensaje.setReplyMarkup(kb);
                     limpiar();
+                    seccion = "";
                     accion = "";
+                    campo = "";
+                    cantidad_productos = 0;
+                    codigo = "";
+                    v_sucursal_id = 0;
+                } else {
+                    texto_mensaje = "SELECCIONE LA SUCURSAL DONDE SE REGISTRARA LA SALIDA";
+                    if (serviceSucursal.listar().size() > 0) {
+                        // OBTENER EL KEYBOARD DE SUCURSALES
+                        keyboard = keyBoardsucursales(serviceSucursal.listar());
+                        accion = "REGISTRAR_SALIDA";
+                    } else {
+                        // SI NO TIENE ELEMENTOS MOSTRAR ERROR
+                        seccion = "INICIO";
+                        keyboard = inicio();
+                        kb.setKeyboard(keyboard);
+                        texto_mensaje = "NO SE ENCONTRARON SUCURSALES. INTENTE MAS TARDE POR FAVOR.";
+                        mensaje.setReplyMarkup(kb);
+                        limpiar();
+                        accion = "";
+                    }
                 }
-            }
-            kb.setKeyboard(keyboard);
-            mensaje.setReplyMarkup(kb);
-        }
-
-    else if(accion.equals("ID"))
-    {
-        if(!comando.equals("2. MODIFICAR"))
-        {
-            id = Integer.parseInt(comando);
-            texto_mensaje = serviceEmpleado.muestraEmpleado(id);
-            if(texto_mensaje != "")
-            {
-                texto_mensaje += "\n=======================================";
-                texto_mensaje += "\nSELECCIONE EL DATO QUE DESEA MODIFICAR";
-                texto_mensaje += "\n=======================================";
-                keyboard = datosEmpleados();
                 kb.setKeyboard(keyboard);
                 mensaje.setReplyMarkup(kb);
-                accion = "MODIFICAR";
+            } else if (accion.equals("ID")) {
+                if (!comando.equals("2. MODIFICAR")) {
+                    id = Integer.parseInt(comando);
+                    texto_mensaje = serviceEmpleado.muestraEmpleado(id);
+                    if (texto_mensaje != "") {
+                        texto_mensaje += "\n=======================================";
+                        texto_mensaje += "\nSELECCIONE EL DATO QUE DESEA MODIFICAR";
+                        texto_mensaje += "\n=======================================";
+                        keyboard = datosEmpleados();
+                        kb.setKeyboard(keyboard);
+                        mensaje.setReplyMarkup(kb);
+                        accion = "MODIFICAR";
+                    } else {
+                        texto_mensaje += "\nNO SE ENCONTRO NINGUN EMPLEADO CON ESE ID. POR FAVOR INTENTE CON OTRO ID";
+                    }
+                } else {
+                    texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
+                }
+            } else if (comando.equals("/start")) {
+                texto_mensaje = "BIENVENIDO " + update.getMessage().getFrom().getFirstName().toUpperCase();
             }
-            else{
-                texto_mensaje += "\nNO SE ENCONTRO NINGUN EMPLEADO CON ESE ID. POR FAVOR INTENTE CON OTRO ID";
+
+            mensaje.setText(texto_mensaje);
+            // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
+            mensaje.setChatId(update.getMessage().getChatId());
+            // EJECUTAR EL MENSAJE
+            try {
+                execute(mensaje);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
             }
+            System.out.println("FIN");
         }
-        else{
-            texto_mensaje = "INGRESE EL ID DEL EMPLEADO QUE DESEA MODIFICAR POR FAVOR";
+
+        public void limpiar ()
+        {
+            codigo = "";
+            codigo_modificar = "";
+            nombre = "";
+            direccion = "";
+            celular = "";
+            tipo = "";
+            descripcion = "";
+            id = 0;
+            stock = "";
+            sucursal = "";
         }
-    }
-    else if(comando.equals("/start"))
-    {
-        texto_mensaje = "BIENVENIDO "+ update.getMessage().getFrom().getFirstName().toUpperCase();
-    }
+        /**************
+         * FIN SECCIÓN
+         * *************/
 
-        mensaje.setText(texto_mensaje);
-        // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
-        mensaje.setChatId(update.getMessage().getChatId());
-        // EJECUTAR EL MENSAJE
-        try {
-            execute(mensaje);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+        public List<KeyboardRow> inicio ()
+        {
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            row.add("1. EMPLEADOS");//Opcion1
+            // AGREGAR LOS DATOS A LA LISTA
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("2. PRODUCTOS");//Opcion2
+            keyboard.add(row);
+            return keyboard;
         }
-        System.out.println("FIN");
-    }
-
-    public void limpiar()
-    {
-        codigo = "";
-        codigo_modificar = "";
-        nombre = "";
-        direccion = "";
-        celular = "";
-        tipo = "";
-        descripcion = "";
-        id = 0;
-        stock = "";
-        sucursal = "";
-    }
-            /**************
-             * FIN SECCIÓN
-             * *************/
-
-             public List<KeyboardRow> inicio()
-             {
-               List<KeyboardRow> keyboard = new ArrayList();
-               KeyboardRow row = new KeyboardRow();
-               row.add("1. EMPLEADOS");//Opcion1
-               // AGREGAR LOS DATOS A LA LISTA
-               keyboard.add(row);
-               row = new KeyboardRow();
-               row.add("2. PRODUCTOS");//Opcion2
-               keyboard.add(row);
-               return keyboard;
-             }
 
    /* public List<KeyboardRow> empleados()
     {
@@ -789,26 +654,23 @@ public class MainBot extends  TelegramLongPollingBot{
 
     }*/
 
-    public List<KeyboardRow> keyBoardsucursales(List<Sucursales> sucursales)
-    {
-        List<KeyboardRow> keyboard = new ArrayList();
-        KeyboardRow row = new KeyboardRow();
-        try{
-            for(Sucursales sucursal : sucursales)
-            {
-                row = new KeyboardRow();
-                row.add(sucursal.getNombre());//sucursal
-                keyboard.add(row);
-            }
-        }
-        catch(Exception e)
+        public List<KeyboardRow> keyBoardsucursales (List < Sucursales > sucursales)
         {
-            e.printStackTrace();
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            try {
+                for (Sucursales sucursal : sucursales) {
+                    row = new KeyboardRow();
+                    row.add(sucursal.getNombre());//sucursal
+                    keyboard.add(row);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return keyboard;
         }
-        return keyboard;
-    }
 
-            public List<KeyboardRow> opcionesGC()
+        public List<KeyboardRow> opcionesGC ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
@@ -820,7 +682,7 @@ public class MainBot extends  TelegramLongPollingBot{
             return keyboard;
         }
 
-        public List<KeyboardRow> datosEmpleados()
+        public List<KeyboardRow> datosEmpleados ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
@@ -829,25 +691,21 @@ public class MainBot extends  TelegramLongPollingBot{
             System.out.println(celular);
             System.out.println(sucursal);
 
-            if(nombre == "")
-            {
+            if (nombre == "") {
                 row.add("1. NOMBRE");//opcion1
                 keyboard.add(row);
             }
-            if(direccion == "")
-            {
+            if (direccion == "") {
                 row = new KeyboardRow();
                 row.add("2. DIRECCIÓN");//Opcion2
                 keyboard.add(row);
             }
-            if(celular == "")
-            {
+            if (celular == "") {
                 row = new KeyboardRow();
                 row.add("3. CELULAR");//Opcion3
                 keyboard.add(row);
             }
-            if(sucursal == "")
-            {
+            if (sucursal == "") {
                 row = new KeyboardRow();
                 row.add("4. SUCURSAL");//Opcion3
                 keyboard.add(row);
@@ -855,23 +713,20 @@ public class MainBot extends  TelegramLongPollingBot{
             return keyboard;
         }
 
-        public List<KeyboardRow> datosProductos()
+        public List<KeyboardRow> datosProductos ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
-            if(codigo == "")
-            {
+            if (codigo == "") {
                 row.add("1. CÓDIGO");//opcion1
                 keyboard.add(row);
             }
-            if(nombre == "")
-            {
+            if (nombre == "") {
                 row = new KeyboardRow();
                 row.add("2. NOMBRE");//Opcion2
                 keyboard.add(row);
             }
-            if(descripcion == "")
-            {
+            if (descripcion == "") {
                 row = new KeyboardRow();
                 row.add("3. DESCRIPCIÓN");//Opcion3
                 keyboard.add(row);
@@ -879,7 +734,7 @@ public class MainBot extends  TelegramLongPollingBot{
             return keyboard;
         }
 
-        public List<KeyboardRow> acciones()
+        public List<KeyboardRow> acciones ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
@@ -906,4 +761,5 @@ public class MainBot extends  TelegramLongPollingBot{
          * **********************/
 
     }
+}
 
