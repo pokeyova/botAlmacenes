@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainBot extends  TelegramLongPollingBot{
+public class MainBot extends  TelegramLongPollingBot {
 
-    public int id= 0;
+    public int id = 0;
     public String seccion = "";
     public String accion = "";
     public String campo = "";
@@ -46,8 +46,7 @@ public class MainBot extends  TelegramLongPollingBot{
     private IProductoSucursalService serviceProductoSucursal;
 
     @Autowired
-    public MainBot(EmpleadoServiceImpl sEmpleado, SucursalServiceImpl sSucursal, ProductoServiceImpl sProducto, ProductoSucursalService sProductoSUcursal)
-    {
+    public MainBot(EmpleadoServiceImpl sEmpleado, SucursalServiceImpl sSucursal, ProductoServiceImpl sProducto, ProductoSucursalService sProductoSUcursal) {
         this.serviceEmpleado = sEmpleado;
         this.serviceSucursal = sSucursal;
         this.serviceProducto = sProducto;
@@ -66,6 +65,7 @@ public class MainBot extends  TelegramLongPollingBot{
         // OBTENER EL NOMBRE DEL USUARIO QUE ENVIO EL MENSAJE
         // String nombre_usuario = update.getMessage().getFrom().getFirstName();
     }
+
     @Override
     public String getBotUsername() {
         return "Iventario_Bot";
@@ -78,12 +78,17 @@ public class MainBot extends  TelegramLongPollingBot{
    /*public String getBotToken() {
         return "1011018114:AAF75PTT1qglCByMO0RpdeVmYQuunu95cbw";
     }*/
+
     /****************************
      * SECCIÓN MENÚ DE MENSAJES
      * ***************************/
 
     // Menu inicial
+<<<<<<< HEAD
     public void menuInicial(String comando,Update update) {
+=======
+    public void menuInicial(String comando, Update update) {
+>>>>>>> 708089eafabd0f4e2a61eb97935f0cb461630638
         // RESPONDER AL USUARIO
         SendMessage mensaje = new SendMessage();
         // ARMAR EL MENSAJE
@@ -475,7 +480,11 @@ public class MainBot extends  TelegramLongPollingBot{
                         accion = "MODIFICARP";
                     }
                 }
+<<<<<<<HEAD
             } else if (comando.equals("4. ELIMINAR") || accion.equals("ELIMINAR")) {
+=======
+            } else if (comando.equals("3. ELIMINAR") || accion.equals("ELIMINAR")) {
+>>>>>>>708089e afabd0f4e2a61eb97935f0cb461630638
                 if (seccion == "EMPLEADOS") {
                     if (accion.equals("ELIMINAR")) {
                         serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
@@ -493,7 +502,11 @@ public class MainBot extends  TelegramLongPollingBot{
                         accion = "ELIMINAR";
                     }
                 }
+<<<<<<<HEAD
             } else if (comando.equals("5. MOSTRAR") || accion.equals("MOSTRAR")) {
+=======
+            } else if (comando.equals("4. MOSTRAR") || accion.equals("MOSTRAR")) {
+>>>>>>>708089e afabd0f4e2a61eb97935f0cb461630638
                 if (seccion == "EMPLEADOS") {
                     if (accion.equals("MOSTRAR")) {
                         texto_mensaje = serviceEmpleado.muestraEmpleado(Integer.parseInt(comando));
@@ -600,7 +613,7 @@ public class MainBot extends  TelegramLongPollingBot{
             } else if (comando.equals("/start")) {
                 texto_mensaje = "BIENVENIDO " + update.getMessage().getFrom().getFirstName().toUpperCase();
             }
-
+        }
             mensaje.setText(texto_mensaje);
             // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
             mensaje.setChatId(update.getMessage().getChatId());
@@ -613,36 +626,50 @@ public class MainBot extends  TelegramLongPollingBot{
             System.out.println("FIN");
         }
     }
+}
 
-    public void limpiar()
-    {
-        codigo = "";
-        codigo_modificar = "";
-        nombre = "";
-        direccion = "";
-        celular = "";
-        tipo = "";
-        descripcion = "";
-        id = 0;
-        stock = "";
-        sucursal = "";
-    }
-            /**************
-             * FIN SECCIÓN
-             * *************/
+            mensaje.setText(texto_mensaje);
+            // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
+            mensaje.setChatId(update.getMessage().getChatId());
+            // EJECUTAR EL MENSAJE
+            try {
+                execute(mensaje);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+            System.out.println("FIN");
+        }
+}
+        public void limpiar ()
+        {
+            codigo = "";
+            codigo_modificar = "";
+            nombre = "";
+            direccion = "";
+            celular = "";
+            tipo = "";
+            descripcion = "";
+            id = 0;
+            stock = "";
+            sucursal = "";
+        }
+        /**************
+         * FIN SECCIÓN
+         * *************/
+>>>>>>> 708089eafabd0f4e2a61eb97935f0cb461630638
 
-             public List<KeyboardRow> inicio()
-             {
-               List<KeyboardRow> keyboard = new ArrayList();
-               KeyboardRow row = new KeyboardRow();
-               row.add("1. EMPLEADOS");//Opcion1
-               // AGREGAR LOS DATOS A LA LISTA
-               keyboard.add(row);
-               row = new KeyboardRow();
-               row.add("2. PRODUCTOS");//Opcion2
-               keyboard.add(row);
-               return keyboard;
-             }
+        public List<KeyboardRow> inicio ()
+        {
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            row.add("1. EMPLEADOS");//Opcion1
+            // AGREGAR LOS DATOS A LA LISTA
+            keyboard.add(row);
+            row = new KeyboardRow();
+            row.add("2. PRODUCTOS");//Opcion2
+            keyboard.add(row);
+            return keyboard;
+        }
 
    /* public List<KeyboardRow> empleados()
     {
@@ -654,26 +681,23 @@ public class MainBot extends  TelegramLongPollingBot{
 
     }*/
 
-    public List<KeyboardRow> keyBoardsucursales(List<Sucursales> sucursales)
-    {
-        List<KeyboardRow> keyboard = new ArrayList();
-        KeyboardRow row = new KeyboardRow();
-        try{
-            for(Sucursales sucursal : sucursales)
-            {
-                row = new KeyboardRow();
-                row.add(sucursal.getNombre());//sucursal
-                keyboard.add(row);
-            }
-        }
-        catch(Exception e)
+        public List<KeyboardRow> keyBoardsucursales (List < Sucursales > sucursales)
         {
-            e.printStackTrace();
+            List<KeyboardRow> keyboard = new ArrayList();
+            KeyboardRow row = new KeyboardRow();
+            try {
+                for (Sucursales sucursal : sucursales) {
+                    row = new KeyboardRow();
+                    row.add(sucursal.getNombre());//sucursal
+                    keyboard.add(row);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return keyboard;
         }
-        return keyboard;
-    }
 
-            public List<KeyboardRow> opcionesGC()
+        public List<KeyboardRow> opcionesGC ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
@@ -685,7 +709,7 @@ public class MainBot extends  TelegramLongPollingBot{
             return keyboard;
         }
 
-        public List<KeyboardRow> datosEmpleados()
+        public List<KeyboardRow> datosEmpleados ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
@@ -694,25 +718,21 @@ public class MainBot extends  TelegramLongPollingBot{
             System.out.println(celular);
             System.out.println(sucursal);
 
-            if(nombre == "")
-            {
+            if (nombre == "") {
                 row.add("1. NOMBRE");//opcion1
                 keyboard.add(row);
             }
-            if(direccion == "")
-            {
+            if (direccion == "") {
                 row = new KeyboardRow();
                 row.add("2. DIRECCIÓN");//Opcion2
                 keyboard.add(row);
             }
-            if(celular == "")
-            {
+            if (celular == "") {
                 row = new KeyboardRow();
                 row.add("3. CELULAR");//Opcion3
                 keyboard.add(row);
             }
-            if(sucursal == "")
-            {
+            if (sucursal == "") {
                 row = new KeyboardRow();
                 row.add("4. SUCURSAL");//Opcion3
                 keyboard.add(row);
@@ -720,23 +740,20 @@ public class MainBot extends  TelegramLongPollingBot{
             return keyboard;
         }
 
-        public List<KeyboardRow> datosProductos()
+        public List<KeyboardRow> datosProductos ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
-            if(codigo == "")
-            {
+            if (codigo == "") {
                 row.add("1. CÓDIGO");//opcion1
                 keyboard.add(row);
             }
-            if(nombre == "")
-            {
+            if (nombre == "") {
                 row = new KeyboardRow();
                 row.add("2. NOMBRE");//Opcion2
                 keyboard.add(row);
             }
-            if(descripcion == "")
-            {
+            if (descripcion == "") {
                 row = new KeyboardRow();
                 row.add("3. DESCRIPCIÓN");//Opcion3
                 keyboard.add(row);
@@ -744,7 +761,7 @@ public class MainBot extends  TelegramLongPollingBot{
             return keyboard;
         }
 
-        public List<KeyboardRow> acciones()
+        public List<KeyboardRow> acciones ()
         {
             List<KeyboardRow> keyboard = new ArrayList();
             KeyboardRow row = new KeyboardRow();
@@ -771,4 +788,5 @@ public class MainBot extends  TelegramLongPollingBot{
          * **********************/
 
     }
+}
 
