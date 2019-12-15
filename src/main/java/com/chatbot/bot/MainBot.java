@@ -53,6 +53,8 @@ public class MainBot extends  TelegramLongPollingBot {
         this.serviceProductoSucursal = sProductoSUcursal;
     }
 
+
+
     // FUNCION PARA OBTENER LOS NUEVOS MENSAJES ENVIADOS AL BOT
     @Override
     public void onUpdateReceived(Update update) {
@@ -600,6 +602,7 @@ public class MainBot extends  TelegramLongPollingBot {
         } else if (comando.equals("/start")) {
             texto_mensaje = "BIENVENIDO " + update.getMessage().getFrom().getFirstName().toUpperCase();
         }
+<<<<<<< HEAD
 
         mensaje.setText(texto_mensaje);
         // PREPARAR EL MENSAJE CON EL CHATID DEL USUARIO
@@ -609,6 +612,21 @@ public class MainBot extends  TelegramLongPollingBot {
             execute(mensaje);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+=======
+    }
+        public void limpiar ()
+        {
+            codigo = "";
+            codigo_modificar = "";
+            nombre = "";
+            direccion = "";
+            celular = "";
+            tipo = "";
+            descripcion = "";
+            id = 0;
+            stock = "";
+            sucursal = "";
+>>>>>>> 2bfd7000ba78444729f3d7ba2cc58ad46ea6aa6b
         }
         System.out.println("FIN");
     }
