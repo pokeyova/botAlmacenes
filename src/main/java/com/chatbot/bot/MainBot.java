@@ -476,7 +476,7 @@ public class MainBot extends  TelegramLongPollingBot {
                         accion = "MODIFICARP";
                     }
                 }
-            } else if (comando.equals("4. ELIMINAR") || accion.equals("ELIMINAR")) {
+            } else if (comando.equals("3. ELIMINAR") || accion.equals("ELIMINAR")) {
                 if (seccion == "EMPLEADOS") {
                     if (accion.equals("ELIMINAR")) {
                         serviceEmpleado.eliminaEmpleado(Integer.parseInt(comando));
@@ -494,7 +494,7 @@ public class MainBot extends  TelegramLongPollingBot {
                         accion = "ELIMINAR";
                     }
                 }
-            } else if (comando.equals("5. MOSTRAR") || accion.equals("MOSTRAR")) {
+            } else if (comando.equals("4. MOSTRAR") || accion.equals("MOSTRAR")) {
                 if (seccion == "EMPLEADOS") {
                     if (accion.equals("MOSTRAR")) {
                         texto_mensaje = serviceEmpleado.muestraEmpleado(Integer.parseInt(comando));
