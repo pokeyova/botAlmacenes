@@ -56,4 +56,10 @@ public class ProductoSucursal {
     public void setFecha_reg(String fecha_reg) {
         this.fecha_reg = fecha_reg;
     }
+
+    public void getCodigo() {
+    }
+
+    public void getNombre() {
+    }
 }

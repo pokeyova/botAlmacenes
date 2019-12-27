@@ -6,3 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IEmpleadoRepo extends JpaRepository<Empleados, Integer> {
 
 }
+
+// Prueba de lineas comentadas prueba.
+
